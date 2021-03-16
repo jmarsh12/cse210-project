@@ -1,6 +1,7 @@
 import arcade
 import constants
 
+
 class Ground(arcade.Sprite):
     def __init__(self):
         super().__init__(constants.GROUND_IMAGE)
