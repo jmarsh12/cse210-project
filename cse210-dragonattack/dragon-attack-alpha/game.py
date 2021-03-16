@@ -26,6 +26,8 @@ class Game(arcade.Window):
         self.space_pressed = False
         self.change_x = 0
         self.change_y = 0
+        self.view_bottom = 0
+        self.view_left = 0
 
     def on_draw(self):
         arcade.start_render()
@@ -112,3 +114,30 @@ class Game(arcade.Window):
             self.fire = Fire(self.dragon.center_x, self.dragon.center_y)
             self.fire_list.append(self.fire)
             time.sleep(0.1)
+
+        change = False
+        left_boundary = self.view_left + constants.LEFT_VIEWPOINT_MARGIN
+        if self.dragon.left < left_boundary:
+            self.view_left -= left_boundary - self.dragon.left
+            change = True
+
+        right_boundary = self.view_left + constants.SCREEN_WIDTH - constants.RIGHT_VIEWPOINT_MARGIN
+        if self.dragon.right > right_boundary:
+            self.view_left += self.dragon.right - right_boundary
+            change = True
+
+        top_boundary = self.view_bottom + constants.SCREEN_HEIGHT - constants.TOP_VIEWPOINT_MARGIN
+        if self.dragon.top > top_boundary:
+            self.view_bottom += self.dragon.top - top_boundary
+            change = True
+
+        bottom_boundary = self.view_bottom + constants.BOTTOM_VIEWPOINT_MARGIN
+        if self.dragon.bottom < bottom_boundary:
+            self.view_bottom -= bottom_boundary - self.dragon.bottom
+            change = True
+
+        if change:
+            self.view_bottom = int(self.view_bottom)
+            self.view_left = int(self.view_left)
+            arcade.set_viewport(self.view_left, constants.SCREEN_WIDTH + self.view_left,
+                                self.view_bottom, constants.SCREEN_HEIGHT + self.view_bottom)
