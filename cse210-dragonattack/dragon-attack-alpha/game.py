@@ -11,6 +11,8 @@ class Game(arcade.Window):
         super().__init__(constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT, "Dragon Attack")
         arcade.set_background_color(arcade.color.ALICE_BLUE)
 
+        self.fire_impact_sound = constants.FIRE_IMPACT_SOUND
+        self.fire_sound = constants.FIRE_SOUND
         self.dragon = Dragon()
         self.fire = None
         self.ground = None
@@ -89,6 +91,7 @@ class Game(arcade.Window):
         for fire in self.fire_list:
             for ground in self.ground_list:
                 if fire.collides_with_sprite(ground):
+                    arcade.play_sound(self.fire_impact_sound)
                     self.fire_list.remove(fire)
                     break
         for ground in self.ground_list:
@@ -104,5 +107,6 @@ class Game(arcade.Window):
         elif self.right_pressed and not self.left_pressed:
             self.dragon.change_x = constants.PLAYER_MOVEMENT_SPEED
         if self.space_pressed:
+            arcade.play_sound(self.fire_sound)
             self.fire = Fire(self.dragon.center_x, self.dragon.center_y)
             self.fire_list.append(self.fire)
