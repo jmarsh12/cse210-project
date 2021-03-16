@@ -3,6 +3,7 @@ import constants
 from ground import Ground
 from dragon import Dragon
 from fire import Fire
+import time
 
 
 class Game(arcade.Window):
@@ -110,3 +111,4 @@ class Game(arcade.Window):
             arcade.play_sound(self.fire_sound)
             self.fire = Fire(self.dragon.center_x, self.dragon.center_y)
             self.fire_list.append(self.fire)
+            time.sleep(0.1)
