@@ -91,7 +91,9 @@ class Game(arcade.Window):
                 if fire.collides_with_sprite(ground):
                     self.fire_list.remove(fire)
                     break
-
+        for ground in self.ground_list:
+            if self.dragon.collides_with_sprite(ground):
+                self.dragon.center_y = (2 * constants.TERRAIN_HEIGHT) + constants.DRAGON_HEIGHT
 
         if self.up_pressed and not self.down_pressed:
             self.dragon.change_y = constants.PLAYER_MOVEMENT_SPEED
