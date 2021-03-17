@@ -28,6 +28,7 @@ class Game(arcade.Window):
         self.change_y = 0
         self.view_bottom = 0
         self.view_left = 0
+        self.physics_engine = None
 
     def on_draw(self):
         arcade.start_render()
@@ -44,9 +45,27 @@ class Game(arcade.Window):
         #     self.fire.draw()
 
     def setup(self):
-        for i in range(200):
+        for i in range(0, 300, 1):
             self.ground = Ground()
             self.ground.center_x = constants.TERRAIN_RADIUS * (i * 2)
+            self.ground_list.append(self.ground)
+
+        for i in range(60, 75, 6):
+            self.ground = Ground()
+            self.ground.center_x = i * 17
+            self.ground.center_y = 600
+            self.ground_list.append(self.ground)
+
+        for i in range(100, 125, 6):
+            self.ground = Ground()
+            self.ground.center_x = i * 17
+            self.ground.center_y = 350
+            self.ground_list.append(self.ground)
+
+        for i in range(150, 160, 6):
+            self.ground = Ground()
+            self.ground.center_x = i * 17
+            self.ground.center_y = 750
             self.ground_list.append(self.ground)
 
     def on_key_press(self, key, modifiers):
@@ -100,6 +119,7 @@ class Game(arcade.Window):
         for ground in self.ground_list:
             if self.dragon.collides_with_sprite(ground):
                 self.dragon.center_y = (2 * constants.TERRAIN_HEIGHT) + constants.DRAGON_HEIGHT
+        # TODO: resolve collisions with platforms bug
 
         if self.up_pressed and not self.down_pressed:
             self.dragon.change_y = constants.PLAYER_MOVEMENT_SPEED
