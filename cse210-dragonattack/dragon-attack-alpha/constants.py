@@ -9,13 +9,24 @@ SCREEN_TITLE = "Sprite with Moving Platforms Example"
 GROUND_IMAGE = "images/terrain.png"
 DRAGON_IMAGE = "images/dragon.png"
 FIRE_IMAGE = "images/fire.png"
+VILLAGE_IMAGE = "images/village.png"
+MISSILE_IMAGE = "images/missile.png"
 FIRE_SOUND = arcade.load_sound(":resources:sounds/explosion2.wav")
 FIRE_IMPACT_SOUND = arcade.load_sound(":resources:/sounds/hit1.wav")
+
 
 SPRITE_PIXEL_SIZE = 128
 GRID_PIXEL_SIZE = (SPRITE_PIXEL_SIZE * SPRITE_SCALING)
 TERRAIN_RADIUS = 55
 TERRAIN_HEIGHT = 56
+
+VILLAGE_RADIUS = 30
+VILLAGE_HEIGHT = 30
+
+MISSILE_RADIUS = 1
+MISSILE_HEIGHT = 1
+
+GRAVITY = 0
 
 DRAGON_RADIUS = (130 / 2)
 DRAGON_HEIGHT = (54 / 2)

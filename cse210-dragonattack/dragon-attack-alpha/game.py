@@ -3,6 +3,7 @@ import constants
 from ground import Ground
 from dragon import Dragon
 from fire import Fire
+from village import Village
 import time
 
 
@@ -17,7 +18,8 @@ class Game(arcade.Window):
         self.dragon = Dragon()
         self.fire = None
         self.ground = None
-        self.ground_list = []
+        self.ground_list = arcade.SpriteList()
+        self.missile_list = arcade.SpriteList()
         self.fire_list = []
         self.left_pressed = False
         self.right_pressed = False
@@ -29,6 +31,11 @@ class Game(arcade.Window):
         self.view_bottom = 0
         self.view_left = 0
         self.physics_engine = None
+        self.physics_engine_missile = None
+
+        self.collided = False
+        
+        self.village_list = arcade.SpriteList()
 
     def on_draw(self):
         arcade.start_render()
@@ -40,6 +47,13 @@ class Game(arcade.Window):
         if len(self.fire_list) > 0:
             for fire in self.fire_list:
                 fire.draw()
+            
+        for i in self.village_list:
+            i.draw()
+        
+        self.missile_list.draw()
+        # for i in self.missile_list:
+        #     i.draw()
         # if self.space_pressed:
         #     self.fire = Fire(self.dragon.center_x, self.dragon.center_y)
         #     self.fire.draw()
@@ -67,6 +81,28 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 750
             self.ground_list.append(self.ground)
+        
+        
+        self.village1 = Village(self.missile_list)
+        self.village1.center_x = 400
+        self.village1.center_y = 152
+        self.village_list.append(self.village1)
+        arcade.schedule(self.village1.add_missile, 1)
+
+        self.village2 = Village(self.missile_list)
+        self.village2.center_x = 2500
+        self.village2.center_y = 152
+        self.village_list.append(self.village2)
+        arcade.schedule(self.village2.add_missile, 1)
+
+        self.physics_engine = \
+            arcade.PhysicsEnginePlatformer(self.dragon,
+                                            self.village_list,
+                                           gravity_constant=0)
+        
+        
+        
+        
 
     def on_key_press(self, key, modifiers):
         """
@@ -99,6 +135,18 @@ class Game(arcade.Window):
             self.space_pressed = False
 
     def on_update(self, delta_time):
+        
+        self.physics_engine.update()
+
+        for i in self.missile_list:
+            self.physics_engine_missile = \
+            arcade.PhysicsEnginePlatformer(i,
+                                            self.village_list,
+                                           gravity_constant=0.2)
+            self.physics_engine_missile.update()
+
+        
+        
         self.dragon.center_x += self.dragon.change_x
         self.dragon.center_y += self.dragon.change_y
         if len(self.fire_list) > 0:
@@ -109,6 +157,8 @@ class Game(arcade.Window):
                 self.fire_list[i].change_x = constants.FIRE_SPEED
         self.dragon.change_x = 0
         self.dragon.change_y = 0
+
+
         # If continuous movement is desired, erase 2 previous lines
         for fire in self.fire_list:
             for ground in self.ground_list:
@@ -119,7 +169,19 @@ class Game(arcade.Window):
         for ground in self.ground_list:
             if self.dragon.collides_with_sprite(ground):
                 self.dragon.center_y = (2 * constants.TERRAIN_HEIGHT) + constants.DRAGON_HEIGHT
+        
+        for village in self.village_list:
+            if self.dragon.collides_with_sprite(village):
+                self.dragon.change_x = 0
         # TODO: resolve collisions with platforms bug
+
+        for sprite in self.missile_list:
+            sprite.center_y = int(
+                sprite.center_y + sprite.change_y * delta_time
+            )
+            sprite.center_x = int(
+                sprite.center_x + sprite.change_x * delta_time
+            )
 
         if self.up_pressed and not self.down_pressed:
             self.dragon.change_y = constants.PLAYER_MOVEMENT_SPEED
@@ -161,3 +223,13 @@ class Game(arcade.Window):
             self.view_left = int(self.view_left)
             arcade.set_viewport(self.view_left, constants.SCREEN_WIDTH + self.view_left,
                                 self.view_bottom, constants.SCREEN_HEIGHT + self.view_bottom)
+
+        for i in self.missile_list:
+            if self.dragon.collides_with_sprite(i) or i.collides_with_list(self.ground_list):
+                i.remove_from_sprite_lists()
+            if i.left < 0 or i.top > 1200:
+                i.remove_from_sprite_lists()
+        
+        # for village in self.village_list:
+        #     if self.dragon.collides_with_sprite(ground):
+        #         self.dragon.center_x = 0
