@@ -46,10 +46,8 @@ class Game(arcade.Window):
             for i in range(5):
                 self.sheep.sheep_list.append(self.sheep)
 
-        print(self.sheep.sheep_list)
         for i in self.sheep.sheep_list:
             if self.sheep.alive == True:
-                # self.sheep.center_x += i
                 self.sheep.draw()
                 self.sheep.move_sheep()
 
@@ -497,7 +495,6 @@ class Game(arcade.Window):
         if len(self.dragon.fire_list) > 0:
             for fire in self.dragon.fire_list:
                 for ground in self.ground_list:
-                    # self.handle_collisions.fire_hit_ground(fire, ground)
                     if fire.collides_with_sprite(ground):
                         arcade.play_sound(constants.FIRE_IMPACT_SOUND)
                         self.dragon.fire_list.remove(fire)
