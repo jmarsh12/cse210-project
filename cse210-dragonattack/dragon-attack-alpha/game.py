@@ -3,6 +3,7 @@ import constants
 from ground import Ground
 from dragon import Dragon
 from fire import Fire
+from village import Village
 from sheep import Sheep
 
 
@@ -31,6 +32,10 @@ class Game(arcade.Window):
         self.view_left = 0
         self.physics_engine = None
 
+        self.missile_list = arcade.SpriteList()
+        self.village_list = arcade.SpriteList()
+        self.physics_engine_missile = None
+
     def on_draw(self):
         arcade.start_render()
         for i in self.ground_list:
@@ -41,16 +46,20 @@ class Game(arcade.Window):
                 fire.draw()
         if self.space_pressed:
             self.dragon.shoot_fire()
+        
+        for i in self.village_list:
+            i.draw()
+        
+        self.missile_list.draw()
 
         if len(self.sheep.sheep_list) <= 5:
             for i in range(5):
                 self.sheep.sheep_list.append(self.sheep)
 
         for i in self.sheep.sheep_list:
-            if self.sheep.alive == True:
+            if self.sheep.alive:
                 self.sheep.draw()
                 self.sheep.move_sheep()
-
 
     def setup(self):
 
@@ -456,6 +465,23 @@ class Game(arcade.Window):
 
         self.physics_engine = arcade.PhysicsEnginePlatformer(self.dragon, self.ground_list, constants.GRAVITY)
 
+        self.village1 = Village(self.missile_list)
+        self.village1.center_x = 400
+        self.village1.center_y = 152
+        self.village_list.append(self.village1)
+        arcade.schedule(self.village1.add_missile, 1)
+
+        self.village2 = Village(self.missile_list)
+        self.village2.center_x = 2500
+        self.village2.center_y = 152
+        self.village_list.append(self.village2)
+        arcade.schedule(self.village2.add_missile, 1)
+
+        # self.physics_engine = \
+        #     arcade.PhysicsEnginePlatformer(self.dragon,
+        #                                     self.village_list,
+        #                                    constants.GRAVITY)
+
     def on_key_press(self, key, modifiers):
         """
         Called whenever a key is pressed.
@@ -502,6 +528,10 @@ class Game(arcade.Window):
                     elif fire.center_y < -100:
                         self.dragon.fire_list.remove(fire)
                         break
+        for i in self.missile_list:
+            self.physics_engine_missile = \
+             arcade.PhysicsEnginePlatformer(i, self.village_list, gravity_constant=0.2)
+            self.physics_engine_missile.update()
 
         for ground in self.ground_list:
             if self.dragon.collides_with_sprite(ground):
@@ -518,7 +548,6 @@ class Game(arcade.Window):
             self.dragon.move_right()
         if self.space_pressed:
             self.dragon.shoot_fire()
-
         self.physics_engine.update()
 
         change = False
@@ -547,3 +576,10 @@ class Game(arcade.Window):
             self.view_left = int(self.view_left)
             arcade.set_viewport(self.view_left, constants.SCREEN_WIDTH + self.view_left,
                                 self.view_bottom, constants.SCREEN_HEIGHT + self.view_bottom)
+        
+        for i in self.missile_list:
+            if self.dragon.collides_with_sprite(i) or i.collides_with_list(self.ground_list):
+                i.remove_from_sprite_lists()
+            if i.left < 0 or i.top > 1200:
+                i.remove_from_sprite_lists()
+

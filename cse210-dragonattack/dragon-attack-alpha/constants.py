@@ -38,3 +38,6 @@ BOTTOM_VIEWPOINT_MARGIN = 300
 
 GRAVITY = 15
 PLAYER_JUMP_SPEED = 20
+
+VILLAGE_IMAGE = "images/village.png"
+MISSILE_IMAGE = "images/missile.png"
