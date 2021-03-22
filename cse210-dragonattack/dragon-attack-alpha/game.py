@@ -31,11 +31,8 @@ class Game(arcade.Window):
 
     def on_draw(self):
         arcade.start_render()
-        # self.draw.draw_all()
-
         for i in self.ground_list:
             i.draw()
-
         self.dragon.draw()
         if len(self.dragon.fire_list) > 0:
             for fire in self.dragon.fire_list:
@@ -480,12 +477,6 @@ class Game(arcade.Window):
 
     def on_update(self, delta_time):
         self.dragon.move_fire()
-        # if len(self.fire_list) > 0:
-        #     for i in range(len(self.fire_list)):
-        #         self.fire_list[i].center_x += self.fire.change_x
-        #         self.fire_list[i].center_y += self.fire.change_y
-        #         self.fire_list[i].change_y = -constants.FIRE_SPEED
-        #         self.fire_list[i].change_x = constants.FIRE_SPEED
         self.dragon.change_x = 0
         self.dragon.change_y = 0
         # TODO: If continuous movement is desired, erase 2 previous lines; makes for harder game
@@ -513,10 +504,6 @@ class Game(arcade.Window):
             self.dragon.move_right()
         if self.space_pressed:
             self.dragon.shoot_fire()
-            # arcade.play_sound(self.fire_sound)
-            # self.fire = Fire(self.dragon.center_x, self.dragon.center_y)
-            # self.fire_list.append(self.fire)
-            # time.sleep(0.1)
 
         self.physics_engine.update()
 
