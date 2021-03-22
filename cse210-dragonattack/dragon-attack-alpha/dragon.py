@@ -39,14 +39,14 @@ class Dragon(arcade.Sprite):
             pass
 
     def shoot_fire(self):
-        if self.fire_regen == 100:
+        if self.fire_regen > 0:
             arcade.play_sound(constants.FIRE_SOUND)
-            for i in range(200):
-                if i % 50 == 0:
-                    self.fire = Fire(self.center_x, self.center_y)
-                    self.fire_list.append(self.fire)
-        # self.fire_regen = 0
+            self.fire = Fire(self.center_x, self.center_y)
+            self.fire_list.append(self.fire)
+        self.fire_regen -= constants.FIRE_REGEN_SPEED
 
     def regenerate_fire(self):
-        if self.fire_regen < 100:
+        if self.fire_regen < constants.MAX_FIRE:
             self.fire_regen += constants.FIRE_REGEN_SPEED
+        else:
+            self.fire_regen = constants.MAX_FIRE

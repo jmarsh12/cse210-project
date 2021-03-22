@@ -38,8 +38,7 @@ class Game(arcade.Window):
             for fire in self.dragon.fire_list:
                 fire.draw()
         if self.space_pressed:
-            self.fire = Fire(self.dragon.center_x, self.dragon.center_y)
-            self.fire.draw()
+            self.dragon.shoot_fire()
 
     def setup(self):
 
@@ -476,12 +475,12 @@ class Game(arcade.Window):
             self.space_pressed = False
 
     def on_update(self, delta_time):
+        self.dragon.regenerate_fire()
         self.dragon.move_fire()
         self.dragon.change_x = 0
         self.dragon.change_y = 0
         # TODO: If continuous movement is desired, erase 2 previous lines; makes for harder game
         if len(self.dragon.fire_list) > 0:
-            print(self.dragon.fire_list)
             for fire in self.dragon.fire_list:
                 for ground in self.ground_list:
                     # self.handle_collisions.fire_hit_ground(fire, ground)
@@ -489,6 +488,10 @@ class Game(arcade.Window):
                         arcade.play_sound(constants.FIRE_IMPACT_SOUND)
                         self.dragon.fire_list.remove(fire)
                         break
+                    elif fire.center_y < -100:
+                        self.dragon.fire_list.remove(fire)
+                        break
+
         for ground in self.ground_list:
             if self.dragon.collides_with_sprite(ground):
                 self.dragon.center_y = (2 * constants.TERRAIN_HEIGHT) + constants.DRAGON_HEIGHT
