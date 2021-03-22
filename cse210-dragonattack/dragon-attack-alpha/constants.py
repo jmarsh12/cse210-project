@@ -8,6 +8,7 @@ SCREEN_TITLE = "Sprite with Moving Platforms Example"
 
 GROUND_IMAGE = "images/terrain.png"
 DRAGON_IMAGE = "images/dragon.png"
+SHEEP_IMAGE = "images/sheep.png"
 FIRE_IMAGE = "images/fire.png"
 FIRE_SOUND = arcade.load_sound(":resources:sounds/explosion2.wav")
 FIRE_IMPACT_SOUND = arcade.load_sound(":resources:/sounds/hit1.wav")
@@ -22,6 +23,10 @@ DRAGON_HEIGHT = (54 / 2)
 FIRE_RADIUS = 25
 FIRE_REGEN_SPEED = 17
 MAX_FIRE = 102
+
+SHEEP_RADIUS = 65
+SHEEP_HEIGHT = 27
+SHEEP_SPEED = .5
 
 PLAYER_MOVEMENT_SPEED = 50
 FIRE_SPEED = 25

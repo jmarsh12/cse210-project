@@ -4,6 +4,7 @@ from ground import Ground
 from dragon import Dragon
 from fire import Fire
 from village import Village
+from sheep import Sheep
 
 
 class Game(arcade.Window):
@@ -16,6 +17,7 @@ class Game(arcade.Window):
         self.fire_sound = constants.FIRE_SOUND
         self.dragon = Dragon()
         self.fire = None
+        self.sheep = Sheep()
         self.ground = None
         self.ground_list = arcade.SpriteList()
         self.fire_list = []
@@ -32,7 +34,7 @@ class Game(arcade.Window):
 
         self.missile_list = arcade.SpriteList()
         self.village_list = arcade.SpriteList()
-        self.physics_engin_missile = None
+        self.physics_engine_missile = None
 
     def on_draw(self):
         arcade.start_render()
@@ -50,6 +52,14 @@ class Game(arcade.Window):
         
         self.missile_list.draw()
 
+        if len(self.sheep.sheep_list) <= 5:
+            for i in range(5):
+                self.sheep.sheep_list.append(self.sheep)
+
+        for i in self.sheep.sheep_list:
+            if self.sheep.alive:
+                self.sheep.draw()
+                self.sheep.move_sheep()
 
     def setup(self):
 
@@ -472,7 +482,6 @@ class Game(arcade.Window):
         #                                     self.village_list,
         #                                    constants.GRAVITY)
 
-
     def on_key_press(self, key, modifiers):
         """
         Called whenever a key is pressed.
@@ -512,7 +521,6 @@ class Game(arcade.Window):
         if len(self.dragon.fire_list) > 0:
             for fire in self.dragon.fire_list:
                 for ground in self.ground_list:
-                    # self.handle_collisions.fire_hit_ground(fire, ground)
                     if fire.collides_with_sprite(ground):
                         arcade.play_sound(constants.FIRE_IMPACT_SOUND)
                         self.dragon.fire_list.remove(fire)
@@ -522,11 +530,8 @@ class Game(arcade.Window):
                         break
         for i in self.missile_list:
             self.physics_engine_missile = \
-            arcade.PhysicsEnginePlatformer(i,
-                                            self.village_list,
-                                           gravity_constant=0.2)
+             arcade.PhysicsEnginePlatformer(i, self.village_list, gravity_constant=0.2)
             self.physics_engine_missile.update()
-
 
         for ground in self.ground_list:
             if self.dragon.collides_with_sprite(ground):
@@ -543,7 +548,6 @@ class Game(arcade.Window):
             self.dragon.move_right()
         if self.space_pressed:
             self.dragon.shoot_fire()
-
         self.physics_engine.update()
 
         change = False
