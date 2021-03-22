@@ -3,7 +3,6 @@ import constants
 from ground import Ground
 from dragon import Dragon
 from fire import Fire
-import time
 
 
 class Game(arcade.Window):
@@ -17,7 +16,7 @@ class Game(arcade.Window):
         self.dragon = Dragon()
         self.fire = None
         self.ground = None
-        self.ground_list = []
+        self.ground_list = arcade.SpriteList()
         self.fire_list = []
         self.left_pressed = False
         self.right_pressed = False
@@ -32,19 +31,21 @@ class Game(arcade.Window):
 
     def on_draw(self):
         arcade.start_render()
+        # self.draw.draw_all()
 
         for i in self.ground_list:
             i.draw()
-            # print(len(self.ground_list))
+
         self.dragon.draw()
-        if len(self.fire_list) > 0:
-            for fire in self.fire_list:
+        if len(self.dragon.fire_list) > 0:
+            for fire in self.dragon.fire_list:
                 fire.draw()
-        # if self.space_pressed:
-        #     self.fire = Fire(self.dragon.center_x, self.dragon.center_y)
-        #     self.fire.draw()
+        if self.space_pressed:
+            self.fire = Fire(self.dragon.center_x, self.dragon.center_y)
+            self.fire.draw()
 
     def setup(self):
+
         for i in range(0, 300, 1):
             self.ground = Ground()
             self.ground.center_x = constants.TERRAIN_RADIUS * (i * 2)
@@ -67,6 +68,10 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 750
             self.ground_list.append(self.ground)
+
+        # Create the 'physics engine'
+
+        self.physics_engine = arcade.PhysicsEnginePlatformer(self.dragon, self.ground_list, constants.GRAVITY)
 
     def on_key_press(self, key, modifiers):
         """
@@ -99,41 +104,46 @@ class Game(arcade.Window):
             self.space_pressed = False
 
     def on_update(self, delta_time):
-        self.dragon.center_x += self.dragon.change_x
-        self.dragon.center_y += self.dragon.change_y
-        if len(self.fire_list) > 0:
-            for i in range(len(self.fire_list)):
-                self.fire_list[i].center_x += self.fire.change_x
-                self.fire_list[i].center_y += self.fire.change_y
-                self.fire_list[i].change_y = -constants.FIRE_SPEED
-                self.fire_list[i].change_x = constants.FIRE_SPEED
+        self.dragon.move_fire()
+        # if len(self.fire_list) > 0:
+        #     for i in range(len(self.fire_list)):
+        #         self.fire_list[i].center_x += self.fire.change_x
+        #         self.fire_list[i].center_y += self.fire.change_y
+        #         self.fire_list[i].change_y = -constants.FIRE_SPEED
+        #         self.fire_list[i].change_x = constants.FIRE_SPEED
         self.dragon.change_x = 0
         self.dragon.change_y = 0
-        # If continuous movement is desired, erase 2 previous lines
-        for fire in self.fire_list:
-            for ground in self.ground_list:
-                if fire.collides_with_sprite(ground):
-                    arcade.play_sound(self.fire_impact_sound)
-                    self.fire_list.remove(fire)
-                    break
+        # TODO: If continuous movement is desired, erase 2 previous lines; makes for harder game
+        if len(self.dragon.fire_list) > 0:
+            print(self.dragon.fire_list)
+            for fire in self.dragon.fire_list:
+                for ground in self.ground_list:
+                    # self.handle_collisions.fire_hit_ground(fire, ground)
+                    if fire.collides_with_sprite(ground):
+                        arcade.play_sound(constants.FIRE_IMPACT_SOUND)
+                        self.dragon.fire_list.remove(fire)
+                        break
         for ground in self.ground_list:
             if self.dragon.collides_with_sprite(ground):
                 self.dragon.center_y = (2 * constants.TERRAIN_HEIGHT) + constants.DRAGON_HEIGHT
         # TODO: resolve collisions with platforms bug
 
         if self.up_pressed and not self.down_pressed:
-            self.dragon.change_y = constants.PLAYER_MOVEMENT_SPEED
+            self.dragon.move_up()
         elif self.down_pressed and not self.up_pressed:
-            self.dragon.change_y = -constants.PLAYER_MOVEMENT_SPEED
+            self.dragon.move_down()
         if self.left_pressed and not self.right_pressed:
-            self.dragon.change_x = -constants.PLAYER_MOVEMENT_SPEED
+            self.dragon.move_left()
         elif self.right_pressed and not self.left_pressed:
-            self.dragon.change_x = constants.PLAYER_MOVEMENT_SPEED
+            self.dragon.move_right()
         if self.space_pressed:
-            arcade.play_sound(self.fire_sound)
-            self.fire = Fire(self.dragon.center_x, self.dragon.center_y)
-            self.fire_list.append(self.fire)
-            time.sleep(0.1)
+            self.dragon.shoot_fire()
+            # arcade.play_sound(self.fire_sound)
+            # self.fire = Fire(self.dragon.center_x, self.dragon.center_y)
+            # self.fire_list.append(self.fire)
+            # time.sleep(0.1)
+
+        self.physics_engine.update()
 
         change = False
         left_boundary = self.view_left + constants.LEFT_VIEWPOINT_MARGIN
