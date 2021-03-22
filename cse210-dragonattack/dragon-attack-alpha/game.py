@@ -3,6 +3,7 @@ import constants
 from ground import Ground
 from dragon import Dragon
 from fire import Fire
+from sheep import Sheep
 
 
 class Game(arcade.Window):
@@ -15,6 +16,7 @@ class Game(arcade.Window):
         self.fire_sound = constants.FIRE_SOUND
         self.dragon = Dragon()
         self.fire = None
+        self.sheep = Sheep()
         self.ground = None
         self.ground_list = arcade.SpriteList()
         self.fire_list = []
@@ -39,6 +41,18 @@ class Game(arcade.Window):
                 fire.draw()
         if self.space_pressed:
             self.dragon.shoot_fire()
+
+        if len(self.sheep.sheep_list) <= 5:
+            for i in range(5):
+                self.sheep.sheep_list.append(self.sheep)
+
+        print(self.sheep.sheep_list)
+        for i in self.sheep.sheep_list:
+            if self.sheep.alive == True:
+                # self.sheep.center_x += i
+                self.sheep.draw()
+                self.sheep.move_sheep()
+
 
     def setup(self):
 
