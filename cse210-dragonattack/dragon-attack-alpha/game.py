@@ -84,7 +84,7 @@ class Game(arcade.Window):
         
         
         self.village1 = Village(self.missile_list)
-        self.village1.center_x = 400
+        self.village1.center_x = 500
         self.village1.center_y = 152
         self.village_list.append(self.village1)
         arcade.schedule(self.village1.add_missile, 1)
