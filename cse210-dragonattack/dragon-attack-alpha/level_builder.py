@@ -1,548 +1,395 @@
-import arcade
-import constants
 from ground import Ground
-from dragon import Dragon
-from fire import Fire
+from game import constants
+import arcade
 
 
-class Game(arcade.Window):
+class LevelBuilder(arcade.Sprite):
 
     def __init__(self):
-        super().__init__(constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT, "Dragon Attack")
-        arcade.set_background_color(arcade.color.ALICE_BLUE)
+        super().__init__(constants.GROUND_IMAGE)
+        # self.ground = Ground()
+        # self.center_x = constants.TERRAIN_RADIUS
+        # self.center_y = constants.TERRAIN_HEIGHT
+        self.platform_list = []
 
-        self.fire_impact_sound = constants.FIRE_IMPACT_SOUND
-        self.fire_sound = constants.FIRE_SOUND
-        self.dragon = Dragon()
-        self.fire = None
-        self.ground = None
-        self.ground_list = arcade.SpriteList()
-        self.fire_list = []
-        self.left_pressed = False
-        self.right_pressed = False
-        self.up_pressed = False
-        self.down_pressed = False
-        self.space_pressed = False
-        self.change_x = 0
-        self.change_y = 0
-        self.view_bottom = 0
-        self.view_left = 0
-        self.physics_engine = None
-
-    def on_draw(self):
-        arcade.start_render()
-        # self.draw.draw_all()
-
-        for i in self.ground_list:
-            i.draw()
-
-        self.dragon.draw()
-        if len(self.dragon.fire_list) > 0:
-            for fire in self.dragon.fire_list:
-                fire.draw()
-        if self.space_pressed:
-            self.fire = Fire(self.dragon.center_x, self.dragon.center_y)
-            self.fire.draw()
-
-    def setup(self):
-
-        for i in range(0, 30, 1):
-            self.ground = Ground()
-            self.ground.center_x = constants.TERRAIN_RADIUS * (i * 2)
-            self.ground_list.append(self.ground)
-
-        for i in range(40, 100, 1):
-            self.ground = Ground()
-            self.ground.center_x = constants.TERRAIN_RADIUS * (i * 2)
-            self.ground_list.append(self.ground)
-
-        for i in range(125, 250, 1):
-            self.ground = Ground()
-            self.ground.center_x = constants.TERRAIN_RADIUS * (i * 2)
-            self.ground_list.append(self.ground)
-
-        # self.level_builder.build_level_1()
+    def build_level_1(self):
 
         for i in range(60, 75, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 600
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(100, 125, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 350
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(130, 140, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 700
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(85, 100, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 815
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(95, 120, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 1050
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
         #     TODO: put gold on top of this ledge
 
         for i in range(150, 160, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 950
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
         #     TODO: put gold on top of this ledge
 
         for i in range(200, 220, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 400
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(230, 240, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 550
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
         #     TODO: put gold on top of this ledge
 
         for i in range(220, 235, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 0
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
         # TODO: put gold on top of this ledge
 
         for i in range(245, 260, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 250
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(300, 320, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 400
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
         #     TODO: put gold on top of this ledge
 
         for i in range(345, 355, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 600
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(390, 400, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 800
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
         #     TODO: put gold on top of this ledge
 
         for i in range(415, 425, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 650
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
         #     TODO: put gold on top of this ledge
 
         for i in range(400, 410, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 400
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
         #     TODO: put gold on top of this ledge
 
         for i in range(450, 475, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 330
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
         #     TODO: put gold on top of this ledge
 
         for i in range(650, 660, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 400
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(675, 680, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 400
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
         #     TODO: put gold on top of this ledge
 
         for i in range(695, 700, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 400
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(685, 695, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 650
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
         #     TODO: put gold on top of this ledge
 
         for i in range(715, 720, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 400
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(735, 740, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 400
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
         #     TODO: put gold on top of this ledge
 
         for i in range(755, 760, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 400
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(775, 780, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 400
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(795, 800, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 400
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(875, 900, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 350
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(915, 930, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 500
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(940, 960, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 700
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(920, 935, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 900
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(950, 960, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 1100
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(980, 985, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 1250
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(1000, 1005, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 1350
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(1020, 1025, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 1450
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(1040, 1045, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 1550
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(1060, 1065, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 1700
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(1090, 1095, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 150
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(1090, 1095, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 250
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(1090, 1095, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 350
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(1090, 1095, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 450
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(1090, 1095, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 550
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(1090, 1095, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 650
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(1090, 1095, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 750
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(1090, 1095, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 850
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(1090, 1095, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 950
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(1090, 1095, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 1050
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(1090, 1095, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 1150
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(1090, 1095, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 1250
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(1090, 1095, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 1350
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(1090, 1095, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 1450
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(1090, 1095, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 1550
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(1090, 1095, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 1650
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(1090, 1095, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 1750
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(1090, 1095, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 1850
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(1090, 1095, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 1950
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
         #     TODO: put coin on top of wall
 
         for i in range(1125, 1130, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 850
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(1150, 1175, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 850
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(1350, 1360, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 450
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(1375, 1390, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 650
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(1410, 1425, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 750
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(1445, 1460, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 750
-            self.ground_list.append(self.ground)
+            self.platform_list.append(self.ground)
 
         for i in range(1480, 1495, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 750
-            self.ground_list.append(self.ground)
-        #         TODO: add ending flag at range(1610, 1615, 6)
-        #         TODO: add platforms to their own class
-
-        # Create the 'physics engine'
-
-        self.physics_engine = arcade.PhysicsEnginePlatformer(self.dragon, self.ground_list, constants.GRAVITY)
-
-    def on_key_press(self, key, modifiers):
-        """
-        Called whenever a key is pressed.
-        """
-        if key == arcade.key.UP:
-            self.up_pressed = True
-        elif key == arcade.key.DOWN:
-            self.down_pressed = True
-        elif key == arcade.key.LEFT:
-            self.left_pressed = True
-        elif key == arcade.key.RIGHT:
-            self.right_pressed = True
-        elif key == arcade.key.SPACE:
-            self.space_pressed = True
-
-    def on_key_release(self, key, modifiers):
-        """
-        Called when the user releases a key.
-        """
-        if key == arcade.key.UP:
-            self.up_pressed = False
-        elif key == arcade.key.DOWN:
-            self.down_pressed = False
-        elif key == arcade.key.LEFT:
-            self.left_pressed = False
-        elif key == arcade.key.RIGHT:
-            self.right_pressed = False
-        elif key == arcade.key.SPACE:
-            self.space_pressed = False
-
-    def on_update(self, delta_time):
-        self.dragon.move_fire()
-        # if len(self.fire_list) > 0:
-        #     for i in range(len(self.fire_list)):
-        #         self.fire_list[i].center_x += self.fire.change_x
-        #         self.fire_list[i].center_y += self.fire.change_y
-        #         self.fire_list[i].change_y = -constants.FIRE_SPEED
-        #         self.fire_list[i].change_x = constants.FIRE_SPEED
-        self.dragon.change_x = 0
-        self.dragon.change_y = 0
-        # TODO: If continuous movement is desired, erase 2 previous lines; makes for harder game
-        if len(self.dragon.fire_list) > 0:
-            print(self.dragon.fire_list)
-            for fire in self.dragon.fire_list:
-                for ground in self.ground_list:
-                    # self.handle_collisions.fire_hit_ground(fire, ground)
-                    if fire.collides_with_sprite(ground):
-                        arcade.play_sound(constants.FIRE_IMPACT_SOUND)
-                        self.dragon.fire_list.remove(fire)
-                        break
-        for ground in self.ground_list:
-            if self.dragon.collides_with_sprite(ground):
-                self.dragon.center_y = (2 * constants.TERRAIN_HEIGHT) + constants.DRAGON_HEIGHT
-        # TODO: resolve collisions with platforms bug
-
-        if self.up_pressed and not self.down_pressed:
-            self.dragon.move_up()
-        elif self.down_pressed and not self.up_pressed:
-            self.dragon.move_down()
-        if self.left_pressed and not self.right_pressed:
-            self.dragon.move_left()
-        elif self.right_pressed and not self.left_pressed:
-            self.dragon.move_right()
-        if self.space_pressed:
-            self.dragon.shoot_fire()
-            # arcade.play_sound(self.fire_sound)
-            # self.fire = Fire(self.dragon.center_x, self.dragon.center_y)
-            # self.fire_list.append(self.fire)
-            # time.sleep(0.1)
-
-        self.physics_engine.update()
-
-        change = False
-        left_boundary = self.view_left + constants.LEFT_VIEWPOINT_MARGIN
-        if self.dragon.left < left_boundary:
-            self.view_left -= left_boundary - self.dragon.left
-            change = True
-
-        right_boundary = self.view_left + constants.SCREEN_WIDTH - constants.RIGHT_VIEWPOINT_MARGIN
-        if self.dragon.right > right_boundary:
-            self.view_left += self.dragon.right - right_boundary
-            change = True
-
-        top_boundary = self.view_bottom + constants.SCREEN_HEIGHT - constants.TOP_VIEWPOINT_MARGIN
-        if self.dragon.top > top_boundary:
-            self.view_bottom += self.dragon.top - top_boundary
-            change = True
-
-        bottom_boundary = self.view_bottom + constants.BOTTOM_VIEWPOINT_MARGIN
-        if self.dragon.bottom < bottom_boundary:
-            self.view_bottom -= bottom_boundary - self.dragon.bottom
-            change = True
-
-        if change:
-            self.view_bottom = int(self.view_bottom)
-            self.view_left = int(self.view_left)
-            arcade.set_viewport(self.view_left, constants.SCREEN_WIDTH + self.view_left,
-                                self.view_bottom, constants.SCREEN_HEIGHT + self.view_bottom)
+            self.platform_list.append(self.ground)
+    #         TODO: add ending flag at range(1610, 1615, 6)
