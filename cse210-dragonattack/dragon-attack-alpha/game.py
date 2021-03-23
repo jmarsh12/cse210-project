@@ -36,6 +36,8 @@ class Game(arcade.Window):
         self.village_list = arcade.SpriteList()
         self.physics_engine_missile = None
 
+        self.game_over = False
+
     def on_draw(self):
         arcade.start_render()
         for i in self.ground_list:
@@ -46,10 +48,10 @@ class Game(arcade.Window):
                 fire.draw()
         if self.space_pressed:
             self.dragon.shoot_fire()
-        
+
         for i in self.village_list:
             i.draw()
-        
+
         self.missile_list.draw()
 
         if len(self.sheep.sheep_list) <= 5:
@@ -576,10 +578,18 @@ class Game(arcade.Window):
             self.view_left = int(self.view_left)
             arcade.set_viewport(self.view_left, constants.SCREEN_WIDTH + self.view_left,
                                 self.view_bottom, constants.SCREEN_HEIGHT + self.view_bottom)
-        
+
         for i in self.missile_list:
-            if self.dragon.collides_with_sprite(i) or i.collides_with_list(self.ground_list):
+            if self.dragon.collides_with_sprite(i):
+                self.game_over = True
+                i.remove_from_sprite_lists()
+            elif i.collides_with_list(self.ground_list):
                 i.remove_from_sprite_lists()
             if i.left < 0 or i.top > 1200:
                 i.remove_from_sprite_lists()
 
+        if self.game_over == True:
+            arcade.close_window()
+
+        if self.dragon.center_y < -400:
+            arcade.close_window()
