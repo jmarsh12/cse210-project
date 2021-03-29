@@ -2,6 +2,7 @@ import arcade
 import time
 import constants
 
+
 class Sheep(arcade.Sprite):
 
     def __init__(self):
@@ -11,8 +12,6 @@ class Sheep(arcade.Sprite):
         self.alive = True
         self.sheep_list = []
         self.boundary_right = 3
-        
-    
 
     def move_sheep(self):
         self.change_x = constants.SHEEP_SPEED 
@@ -21,5 +20,3 @@ class Sheep(arcade.Sprite):
             self.alive = False
         if self.center_x == self.boundary_right:
             self.change_x * -1
-        
-

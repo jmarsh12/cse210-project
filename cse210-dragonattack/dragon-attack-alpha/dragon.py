@@ -8,6 +8,7 @@ class Dragon(arcade.Sprite):
     def __init__(self):
         super().__init__(constants.DRAGON_IMAGE)
         self.fire = None
+        self.health = constants.DRAGON_MAX_HEALTH
         self.center_x = (constants.DRAGON_RADIUS * 2) + 10
         self.center_y = (2 * constants.TERRAIN_HEIGHT) + constants.DRAGON_HEIGHT
         self.change_x = 0
@@ -27,6 +28,12 @@ class Dragon(arcade.Sprite):
 
     def move_right(self):
         self.change_x = constants.PLAYER_MOVEMENT_SPEED
+
+    def get_center_x(self):
+        return self.center_x
+
+    def get_center_y(self):
+        return self.center_y
 
     def move_fire(self):
         if len(self.fire_list) > 0:
