@@ -6,12 +6,13 @@ SCREEN_WIDTH = 1900
 SCREEN_HEIGHT = 1000
 SCREEN_TITLE = "Sprite with Moving Platforms Example"
 
-GROUND_IMAGE = "images/terrain.png"
+GROUND_IMAGE = "images/ground.png"
 DRAGON_IMAGE = "images/dragon.png"
-SHEEP_IMAGE = "images/sheep.png"
-FIRE_IMAGE = "images/fire.png"
+SHEEP_IMAGE = "images/sheep_right.png"
+FIRE_IMAGE = "images/snmall_fireball.png"
 FIRE_SOUND = arcade.load_sound(":resources:sounds/explosion2.wav")
 FIRE_IMPACT_SOUND = arcade.load_sound(":resources:/sounds/hit1.wav")
+GAME_SONG = arcade.load_sound("assets/Monkey_Drama.mp3")
 
 SPRITE_PIXEL_SIZE = 128
 GRID_PIXEL_SIZE = (SPRITE_PIXEL_SIZE * SPRITE_SCALING)
