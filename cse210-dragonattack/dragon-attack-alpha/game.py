@@ -1,5 +1,6 @@
 import arcade
 import constants
+import random
 from ground import Ground
 from dragon import Dragon
 from fire import Fire
@@ -33,6 +34,7 @@ class Game(arcade.Window):
         self.view_bottom = 0
         self.view_left = 0
         self.physics_engine = None
+        self.song = constants.GAME_SONG
 
         self.missile_list = arcade.SpriteList()
         self.village_list = arcade.SpriteList()
@@ -61,14 +63,26 @@ class Game(arcade.Window):
 
         if len(self.sheep.sheep_list) <= 5:
             for i in range(5):
+                self.sheep.center_x = random.randint(200, 1000)
                 self.sheep.sheep_list.append(self.sheep)
-
+            
         for i in self.sheep.sheep_list:
             if self.sheep.alive:
                 self.sheep.draw()
                 self.sheep.move_sheep()
+        for fire in self.dragon.fire_list:
+            for sheep in self.sheep.sheep_list:
+                if fire.collides_with_sprite(sheep):
+                        arcade.play_sound(constants.FIRE_IMPACT_SOUND)
+                        self.dragon.fire_list.remove(fire)
+                        self.sheep.sheep_list.remove(sheep)
+                        break
+            self.alive = False
+        
 
     def setup(self):
+
+        arcade.play_sound(self.song)
 
         for i in range(0, 30, 1):
             self.ground = Ground()
@@ -599,14 +613,7 @@ class Game(arcade.Window):
                 i.remove_from_sprite_lists()
 
         if self.game_over == True:
-            # arcade.close_window()
-            self.dragon.center_x = 50
-            self.game_over = False
-            # if we want to just start the level over, use the above code
+            arcade.close_window()
 
         if self.dragon.center_y < -400:
-            # arcade.close_window()
-            self.dragon.center_x = 50
-            self.dragon.center_y = 150
-            self.game_over = False
-            # if we want to just start the level over, use the above code
+            arcade.close_window()
