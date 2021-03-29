@@ -605,6 +605,7 @@ class Game(arcade.Window):
         for i in self.missile_list:
             if self.dragon.collides_with_sprite(i):
                 self.dragon.lose_health()
+                arcade.play_sound(constants.DAMAGE_SOUND)
                 # self.game_over = True
                 i.remove_from_sprite_lists()
             elif i.collides_with_list(self.ground_list):
@@ -622,5 +623,6 @@ class Game(arcade.Window):
             # arcade.close_window()
             self.dragon.center_x = 50
             self.dragon.center_y = 150
+            arcade.play_sound(constants.LOSE_SOUND)
             self.game_over = False
             # if we want to just start the level over, use the above code
