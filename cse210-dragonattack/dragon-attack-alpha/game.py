@@ -82,7 +82,7 @@ class Game(arcade.Window):
 
     def setup(self):
 
-        arcade.play_sound(self.song)
+        arcade.play_sound(constants.GAME_SONG_2)
 
         for i in range(0, 30, 1):
             self.ground = Ground()
