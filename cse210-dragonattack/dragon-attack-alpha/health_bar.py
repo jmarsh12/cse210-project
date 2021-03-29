@@ -17,13 +17,21 @@ class HealthBar:
         self.change_y = constants.GRAVITY
 
     def draw_health_bar(self):
-        if self.dragon.health == constants.DRAGON_MAX_HEALTH:
-            arcade.draw_rectangle_filled(self.center_x, self.center_y, self.width, self.height, self.color)
+        self.dragon.get_health_remaining()
+        # if self.dragon.health == constants.DRAGON_MAX_HEALTH:
+        #     arcade.draw_rectangle_filled(self.center_x, (self.center_y - 75), self.width, self.height, self.color)
+        # else:
+        arcade.draw_rectangle_filled(self.center_x, (self.center_y - 75), self.heath_remaining / 10,
+                                     self.height, self.color)
 
-    def update (self, x, y, health_remaining):
+    def update(self, x, y, health_remaining):
         self.center_x = x
         self.center_y = y
         self.heath_remaining = health_remaining
+
+    # def lose_health(self):
+    #     self.heath_remaining -= 100
+
 
     # def move_up(self):
     #     self.change_y = constants.PLAYER_JUMP_SPEED
