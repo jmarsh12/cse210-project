@@ -7,6 +7,7 @@ from fire import Fire
 from health_bar import HealthBar
 from village import Village
 from sheep import Sheep
+import time
 
 
 class Game(arcade.Window):
@@ -608,6 +609,9 @@ class Game(arcade.Window):
                 arcade.play_sound(constants.DAMAGE_SOUND)
                 self.dragon.lose_health()
                 i.remove_from_sprite_lists()
+                if self.dragon.health == 0:
+                    self.game_over = True
+                    self.dragon.reset_health()
             elif i.collides_with_list(self.ground_list):
                 i.remove_from_sprite_lists()
             if i.left < 0 or i.top > 1200:
@@ -615,15 +619,16 @@ class Game(arcade.Window):
 
         if self.game_over:
             # arcade.close_window()
-            arcade.play_sound(constants.LOSE_SOUND)
             self.dragon.center_x = 50
             self.game_over = False
             # if we want to just start the level over, use the above code
 
         if self.dragon.center_y < -400:
-            # arcade.close_window()
-            self.dragon.center_x = 50
-            self.dragon.center_y = 150
             arcade.play_sound(constants.LOSE_SOUND)
-            self.game_over = False
+            time.sleep(0.6)
+            arcade.close_window()
+            # self.dragon.center_x = 50
+            # self.dragon.center_y = 150
+
+            # self.game_over = False
             # if we want to just start the level over, use the above code

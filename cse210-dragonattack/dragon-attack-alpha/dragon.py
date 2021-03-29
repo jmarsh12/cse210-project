@@ -67,6 +67,9 @@ class Dragon(arcade.Sprite):
         else:
             self.health -= 100
 
+    def reset_health(self):
+        self.health = constants.DRAGON_MAX_HEALTH
+
     def draw(self):
 
         if self._facing_left:
