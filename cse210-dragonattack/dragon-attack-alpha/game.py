@@ -3,6 +3,7 @@ import constants
 from ground import Ground
 from dragon import Dragon
 from fire import Fire
+from health_bar import HealthBar
 from village import Village
 from sheep import Sheep
 
@@ -16,6 +17,7 @@ class Game(arcade.Window):
         self.fire_impact_sound = constants.FIRE_IMPACT_SOUND
         self.fire_sound = constants.FIRE_SOUND
         self.dragon = Dragon()
+        self.health = HealthBar()
         self.fire = None
         self.sheep = Sheep()
         self.ground = None
@@ -40,9 +42,12 @@ class Game(arcade.Window):
 
     def on_draw(self):
         arcade.start_render()
+
         for i in self.ground_list:
             i.draw()
+        self.health.draw_health_bar()
         self.dragon.draw()
+
         if len(self.dragon.fire_list) > 0:
             for fire in self.dragon.fire_list:
                 fire.draw()
@@ -516,6 +521,7 @@ class Game(arcade.Window):
 
     def on_update(self, delta_time):
         self.dragon.regenerate_fire()
+        self.health.update(self.dragon.get_center_x(), self.dragon.get_center_y(), self.dragon.health)
         self.dragon.move_fire()
         self.dragon.change_x = 0
         self.dragon.change_y = 0
@@ -542,12 +548,16 @@ class Game(arcade.Window):
 
         if self.up_pressed and not self.down_pressed:
             self.dragon.move_up()
+            # self.health.move_up()
         elif self.down_pressed and not self.up_pressed:
             self.dragon.move_down()
+            # self.health.move_down()
         if self.left_pressed and not self.right_pressed:
             self.dragon.move_left()
+        # self.health.move_left()
         elif self.right_pressed and not self.left_pressed:
             self.dragon.move_right()
+            # self.health.move_right()
         if self.space_pressed:
             self.dragon.shoot_fire()
         self.physics_engine.update()
@@ -589,7 +599,14 @@ class Game(arcade.Window):
                 i.remove_from_sprite_lists()
 
         if self.game_over == True:
-            arcade.close_window()
+            # arcade.close_window()
+            self.dragon.center_x = 50
+            self.game_over = False
+            # if we want to just start the level over, use the above code
 
         if self.dragon.center_y < -400:
-            arcade.close_window()
+            # arcade.close_window()
+            self.dragon.center_x = 50
+            self.dragon.center_y = 150
+            self.game_over = False
+            # if we want to just start the level over, use the above code

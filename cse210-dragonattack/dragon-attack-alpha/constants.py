@@ -20,6 +20,31 @@ TERRAIN_HEIGHT = 56
 
 DRAGON_RADIUS = (130 / 2)
 DRAGON_HEIGHT = (54 / 2)
+DRAGON_MAX_HEALTH = 1000
+
+HEALTH_BAR_LENGTH = DRAGON_MAX_HEALTH / 10
+HEALTH_BAR_HEIGHT = 10
+
+FLYING_RIGHT_0 = "images/flying_right_0.png"
+FLYING_RIGHT_1 = "images/flying_right_0.png"
+FLYING_RIGHT_2 = "images/flying_right_0.png"
+FLYING_RIGHT_3 = "images/flying_right_1.png"
+FLYING_RIGHT_4 = "images/flying_right_1.png"
+FLYING_RIGHT_5 = "images/flying_right_1.png"
+FLYING_RIGHT_6 = "images/flying_right_2.png"
+FLYING_RIGHT_7 = "images/flying_right_2.png"
+FLYING_RIGHT_8 = "images/flying_right_2.png"
+
+FLYING_LEFT_0 = "images/flying_left_0.png"
+FLYING_LEFT_1 = "images/flying_left_0.png"
+FLYING_LEFT_2 = "images/flying_left_0.png"
+FLYING_LEFT_3 = "images/flying_left_1.png"
+FLYING_LEFT_4 = "images/flying_left_1.png"
+FLYING_LEFT_5 = "images/flying_left_1.png"
+FLYING_LEFT_6 = "images/flying_left_2.png"
+FLYING_LEFT_7 = "images/flying_left_2.png"
+FLYING_LEFT_8 = "images/flying_left_2.png"
+
 FIRE_RADIUS = 25
 FIRE_REGEN_SPEED = 17
 MAX_FIRE = 102
