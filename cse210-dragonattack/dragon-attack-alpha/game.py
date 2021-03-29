@@ -622,7 +622,6 @@ class Game(arcade.Window):
 
         if self.dragon.center_y < -400:
             # arcade.close_window()
-            arcade.play_sound(constants.LOSE_SOUND)
             self.dragon.center_x = 50
             self.dragon.center_y = 150
             arcade.play_sound(constants.LOSE_SOUND)
