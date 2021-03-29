@@ -2,14 +2,14 @@ import os
 import arcade
 
 SPRITE_SCALING = 0.5
-SCREEN_WIDTH = 1900
-SCREEN_HEIGHT = 1000
+SCREEN_WIDTH = 1200
+SCREEN_HEIGHT = 900
 SCREEN_TITLE = "Sprite with Moving Platforms Example"
 
 GROUND_IMAGE = "images/ground.png"
 DRAGON_IMAGE = "images/dragon.png"
 SHEEP_IMAGE = "images/sheep_right.png"
-FIRE_IMAGE = "images/snmall_fireball.png"
+FIRE_IMAGE = "images/small_fireball.png"
 FIRE_SOUND = arcade.load_sound(":resources:sounds/explosion2.wav")
 FIRE_IMPACT_SOUND = arcade.load_sound(":resources:/sounds/hit1.wav")
 GAME_SONG = arcade.load_sound("assets/Monkey_Drama.mp3")
@@ -65,5 +65,5 @@ BOTTOM_VIEWPOINT_MARGIN = 300
 GRAVITY = 15
 PLAYER_JUMP_SPEED = 20
 
-VILLAGE_IMAGE = "images/village.png"
-MISSILE_IMAGE = "images/missile.png"
+VILLAGE_IMAGE = "images/village3.png"
+MISSILE_IMAGE = "images/rock.png"
