@@ -78,7 +78,6 @@ class Game(arcade.Window):
                         self.sheep.sheep_list.remove(sheep)
                         break
             self.alive = False
-        
 
     def setup(self):
 
@@ -607,15 +606,16 @@ class Game(arcade.Window):
             if self.dragon.collides_with_sprite(i):
                 # self.game_over = True
                 arcade.play_sound(constants.DAMAGE_SOUND)
+                self.dragon.lose_health()
                 i.remove_from_sprite_lists()
             elif i.collides_with_list(self.ground_list):
                 i.remove_from_sprite_lists()
             if i.left < 0 or i.top > 1200:
                 i.remove_from_sprite_lists()
 
-        if self.game_over == True:
-            # arcade.play_sound(constants.LOSE_SOUND)
+        if self.game_over:
             # arcade.close_window()
+            arcade.play_sound(constants.LOSE_SOUND)
             self.dragon.center_x = 50
             self.game_over = False
             # if we want to just start the level over, use the above code
@@ -625,5 +625,6 @@ class Game(arcade.Window):
             arcade.play_sound(constants.LOSE_SOUND)
             self.dragon.center_x = 50
             self.dragon.center_y = 150
+            arcade.play_sound(constants.LOSE_SOUND)
             self.game_over = False
             # if we want to just start the level over, use the above code
