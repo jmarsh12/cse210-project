@@ -61,6 +61,12 @@ class Dragon(arcade.Sprite):
         self._facing_left = False
         self._frame = (self._frame + 1) % 9
 
+    def lose_health(self):
+        if self.health <= 0:
+            self.health = 0
+        else:
+            self.health -= 100
+
     def draw(self):
 
         if self._facing_left:
@@ -78,6 +84,9 @@ class Dragon(arcade.Sprite):
 
     def get_center_y(self):
         return self.center_y
+
+    def get_health_remaining(self):
+        return self.health
 
     def move_fire(self):
         if len(self.fire_list) > 0:
