@@ -613,7 +613,14 @@ class Game(arcade.Window):
                 i.remove_from_sprite_lists()
 
         if self.game_over == True:
-            arcade.close_window()
+            # arcade.close_window()
+            self.dragon.center_x = 50
+            self.game_over = False
+            # if we want to just start the level over, use the above code
 
         if self.dragon.center_y < -400:
-            arcade.close_window()
+            # arcade.close_window()
+            self.dragon.center_x = 50
+            self.dragon.center_y = 150
+            self.game_over = False
+            # if we want to just start the level over, use the above code
