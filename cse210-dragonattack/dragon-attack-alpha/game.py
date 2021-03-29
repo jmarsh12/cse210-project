@@ -605,7 +605,8 @@ class Game(arcade.Window):
 
         for i in self.missile_list:
             if self.dragon.collides_with_sprite(i):
-                self.game_over = True
+                # self.game_over = True
+                arcade.play_sound(constants.DAMAGE_SOUND)
                 i.remove_from_sprite_lists()
             elif i.collides_with_list(self.ground_list):
                 i.remove_from_sprite_lists()
@@ -613,6 +614,7 @@ class Game(arcade.Window):
                 i.remove_from_sprite_lists()
 
         if self.game_over == True:
+            # arcade.play_sound(constants.LOSE_SOUND)
             # arcade.close_window()
             self.dragon.center_x = 50
             self.game_over = False
@@ -620,6 +622,7 @@ class Game(arcade.Window):
 
         if self.dragon.center_y < -400:
             # arcade.close_window()
+            arcade.play_sound(constants.LOSE_SOUND)
             self.dragon.center_x = 50
             self.dragon.center_y = 150
             self.game_over = False
