@@ -2,8 +2,8 @@ import os
 import arcade
 
 SPRITE_SCALING = 0.5
-SCREEN_WIDTH = 1200
-SCREEN_HEIGHT = 900
+SCREEN_WIDTH = 1900
+SCREEN_HEIGHT = 1000
 SCREEN_TITLE = "Sprite with Moving Platforms Example"
 
 GROUND_IMAGE = "images/ground.png"
