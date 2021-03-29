@@ -13,6 +13,7 @@ FIRE_IMAGE = "images/small_fireball.png"
 FIRE_SOUND = arcade.load_sound(":resources:sounds/explosion2.wav")
 FIRE_IMPACT_SOUND = arcade.load_sound(":resources:/sounds/hit1.wav")
 GAME_SONG = arcade.load_sound("assets/Monkey_Drama.mp3")
+GAME_SONG_2 = arcade.load_sound("assets/dragonborne.mp3")
 LOSE_SOUND = arcade.load_sound(":resources:sounds/lose4.wav")
 DAMAGE_SOUND = arcade.load_sound(":resources:sounds/hurt3.wav")
 
