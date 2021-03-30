@@ -35,7 +35,7 @@ class Game(arcade.Window):
         self.view_bottom = 0
         self.view_left = 0
         self.physics_engine = None
-        self.song = constants.GAME_SONG
+        self.song = constants.GAME_SONG_2
 
         self.missile_list = arcade.SpriteList()
         self.village_list = arcade.SpriteList()
