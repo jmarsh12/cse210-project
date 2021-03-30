@@ -35,7 +35,7 @@ class Dragon(arcade.Sprite):
         self.texture_list_right.append(arcade.load_texture(constants.FLYING_RIGHT_6))
         self.texture_list_right.append(arcade.load_texture(constants.FLYING_RIGHT_7))
         self.texture_list_right.append(arcade.load_texture(constants.FLYING_RIGHT_8))
-        self._facing_left = True
+        self._facing_left = False
         self._move_up = True
 
         self._frame = 0
