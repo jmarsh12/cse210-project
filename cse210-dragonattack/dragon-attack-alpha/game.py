@@ -62,10 +62,10 @@ class Game(arcade.Window):
 
         self.missile_list.draw()
 
-        if len(self.sheep.sheep_list) <= 5:
-            for i in range(5):
-                self.sheep.center_x = random.randint(200, 1000)
-                self.sheep.sheep_list.append(self.sheep)
+        if len(self.sheep.sheep_list) < 5:
+
+            self.sheep.center_x = random.randint(200, 1000)
+            self.sheep.sheep_list.append(self.sheep)
             
         for i in self.sheep.sheep_list:
             if self.sheep.alive:
@@ -540,6 +540,13 @@ class Game(arcade.Window):
         self.dragon.change_x = 0
         self.dragon.change_y = 0
         # TODO: If continuous movement is desired, erase 2 previous lines; makes for harder game
+        for sheep in self.sheep.sheep_list:
+            print(len(self.sheep.sheep_list))
+            if self.dragon.collides_with_sprite(sheep):
+                self.dragon.gain_sheep_health_bonus()
+                self.sheep.sheep_list.remove(sheep)
+                break
+
         if len(self.dragon.fire_list) > 0:
             for fire in self.dragon.fire_list:
                 for ground in self.ground_list:
