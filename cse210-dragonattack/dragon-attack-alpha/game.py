@@ -46,6 +46,7 @@ class Game(arcade.Window):
         self.village_list = arcade.SpriteList()
         self.physics_engine_missile = None
 
+        self.win = False
         self.game_over = False
 
     def on_draw(self):
@@ -725,6 +726,14 @@ class Game(arcade.Window):
                 i.remove_from_sprite_lists()
             if i.left < 0 or i.top > 1200:
                 i.remove_from_sprite_lists()
+
+        if self.dragon.collides_with_sprite(self.flag):
+            self.win = True
+
+        if self.win:
+            arcade.play_sound(constants.WIN_SOUND)
+            time.sleep(0.6)
+            arcade.close_window()
 
         if self.game_over:
             # arcade.close_window()
