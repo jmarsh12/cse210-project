@@ -17,11 +17,22 @@ GAME_SONG = arcade.load_sound("assets/Monkey_Drama.mp3")
 GAME_SONG_2 = arcade.load_sound("assets/dragonborne.mp3")
 LOSE_SOUND = arcade.load_sound(":resources:sounds/lose4.wav")
 DAMAGE_SOUND = arcade.load_sound(":resources:sounds/hurt3.wav")
+WIN_SOUND = arcade.load_sound(":resources:sounds/coin2.wav")
 
 SPRITE_PIXEL_SIZE = 128
 GRID_PIXEL_SIZE = (SPRITE_PIXEL_SIZE * SPRITE_SCALING)
 TERRAIN_RADIUS = 55
 TERRAIN_HEIGHT = 56
+
+FLAG_HEIGHT = 75
+FLAG_RADIUS = 15
+FLAG_IMAGE = "images/flagGreen2.png"
+
+GEM_IMAGE = "images/gemBlue.png"
+GEM_HEIGHT = 5
+GEM_RADIUS = 5
+GEM_SOUND = arcade.load_sound(":resources:sounds/coin4.wav")
+
 
 DRAGON_RADIUS = (130 / 2)
 DRAGON_HEIGHT = (54 / 2)
