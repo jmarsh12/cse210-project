@@ -47,7 +47,7 @@ class Dragon(arcade.Sprite):
         self._frame = (self._frame + 1) % 9
 
     def move_down(self):
-        self.change_y = -(constants.PLAYER_JUMP_SPEED / 2)
+        self.change_y = constants.DRAGON_DIVE_SPEED
         self._move_up = False
         self._frame = (self._frame + 1) % 9
 
@@ -65,7 +65,13 @@ class Dragon(arcade.Sprite):
         if self.health <= 0:
             self.health = 0
         else:
-            self.health -= 100
+            self.health -= constants.MISSILE_DAMAGE
+
+    def gain_sheep_health_bonus(self):
+        if self.health <= (constants.DRAGON_MAX_HEALTH - constants.SHEEP_HEALTH_BONUS):
+            self.health += constants.SHEEP_HEALTH_BONUS
+        else:
+            self.health = constants.DRAGON_MAX_HEALTH
 
     def reset_health(self):
         self.health = constants.DRAGON_MAX_HEALTH

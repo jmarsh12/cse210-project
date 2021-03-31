@@ -19,4 +19,4 @@ class Sheep(arcade.Sprite):
         if self.center_x >= 5000:
             self.alive = False
         if self.center_x == self.boundary_right:
-            self.change_x * -1
+            self.change_x *= -1
