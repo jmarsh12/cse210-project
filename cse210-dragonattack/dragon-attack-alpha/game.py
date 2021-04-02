@@ -201,6 +201,7 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 250
             self.ground_list.append(self.ground)
+        #     10th platform
 
         for i in range(300, 320, 6):
             self.ground = Ground()
@@ -296,6 +297,7 @@ class Game(arcade.Window):
                 self.gem.center_x = gem * 17
                 self.gem.center_y = 700
                 self.gem_list.append(self.gem)
+        #     20th platform
 
         for i in range(715, 720, 6):
             self.ground = Ground()
@@ -366,6 +368,7 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 1100
             self.ground_list.append(self.ground)
+        #     30th platform
 
         for i in range(980, 985, 6):
             self.ground = Ground()
@@ -406,12 +409,14 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 1700
             self.ground_list.append(self.ground)
+        #     36th platform
 
         for i in range(1090, 1095, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 150
             self.ground_list.append(self.ground)
+        #     beginning of wall
 
         for i in range(1090, 1095, 6):
             self.ground = Ground()
@@ -525,6 +530,7 @@ class Game(arcade.Window):
                 self.gem.center_x = gem * 17
                 self.gem.center_y = 2000
                 self.gem_list.append(self.gem)
+        #     end of wall
 
         for i in range(1125, 1130, 6):
             self.ground = Ground()
@@ -554,6 +560,7 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 650
             self.ground_list.append(self.ground)
+        # 40th platform
 
         for i in range(1410, 1425, 6):
             self.ground = Ground()
@@ -577,7 +584,8 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 750
             self.ground_list.append(self.ground)
-            #         TODO: add platforms to their own class
+            #     TODO: add platforms to their own class
+            #     43rd platform
 
         for i in range(1610, 1615, 6):
             self.flag = Flag()
