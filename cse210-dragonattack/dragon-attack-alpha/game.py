@@ -609,6 +609,54 @@ class Game(arcade.Window):
         self.village_list.append(self.village2)
         arcade.schedule(self.village2.add_missile, 1)
 
+        self.village2 = Village(self.missile_list)
+        self.village2.center_x = 5000
+        self.village2.center_y = 152
+        self.village_list.append(self.village2)
+        arcade.schedule(self.village2.add_missile, 1)
+
+        self.village2 = Village(self.missile_list)
+        self.village2.center_x = 7775
+        self.village2.center_y = 420
+        self.village_list.append(self.village2)
+        arcade.schedule(self.village2.add_missile, 1)
+
+        self.village2 = Village(self.missile_list)
+        self.village2.center_x = 15000
+        self.village2.center_y = 440
+        self.village_list.append(self.village2)
+        arcade.schedule(self.village2.add_missile, 1)
+
+        self.village2 = Village(self.missile_list)
+        self.village2.center_x = 19750
+        self.village2.center_y = 940
+        self.village_list.append(self.village2)
+        arcade.schedule(self.village2.add_missile, 1)
+
+        self.village2 = Village(self.missile_list)
+        self.village2.center_x = 25000
+        self.village2.center_y = 152
+        self.village_list.append(self.village2)
+        arcade.schedule(self.village2.add_missile, 1)
+
+        # self.village8 = Village(self.missile_list)
+        # self.village8.center_x = 2500
+        # self.village8.center_y = 152
+        # self.village_list.append(self.village2)
+        # arcade.schedule(self.village2.add_missile, 1)
+        #
+        # self.village9 = Village(self.missile_list)
+        # self.village9.center_x = 400
+        # self.village9.center_y = 152
+        # self.village_list.append(self.village1)
+        # arcade.schedule(self.village1.add_missile, 1)
+        #
+        # self.village10 = Village(self.missile_list)
+        # self.village10.center_x = 2500
+        # self.village10.center_y = 152
+        # self.village_list.append(self.village2)
+        # arcade.schedule(self.village2.add_missile, 1)
+
         # self.physics_engine = \
         #     arcade.PhysicsEnginePlatformer(self.dragon,
         #                                     self.village_list,
@@ -652,7 +700,6 @@ class Game(arcade.Window):
         self.dragon.change_y = 0
         # TODO: If continuous movement is desired, erase 2 previous lines; makes for harder game
         for sheep in self.sheep.sheep_list:
-            print(len(self.sheep.sheep_list))
             if self.dragon.collides_with_sprite(sheep):
                 self.dragon.gain_sheep_health_bonus()
                 self.sheep.sheep_list.remove(sheep)
@@ -732,7 +779,7 @@ class Game(arcade.Window):
                     self.dragon.reset_health()
             elif i.collides_with_list(self.ground_list):
                 i.remove_from_sprite_lists()
-            if i.left < 0 or i.top > 1200:
+            if i.left < 0 or i.top > 3000:
                 i.remove_from_sprite_lists()
 
         for fire in self.dragon.fire_list:
