@@ -1,4 +1,4 @@
-from game import constants
+import constants
 import arcade
 
 
