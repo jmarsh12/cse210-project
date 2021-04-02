@@ -41,6 +41,7 @@ class Game(arcade.Window):
         self.view_left = 0
         self.physics_engine = None
         self.song = constants.GAME_SONG_2
+        self.background = constants.BACKGROUND_IMAGE
 
         self.missile_list = arcade.SpriteList()
         self.village_list = arcade.SpriteList()
@@ -51,6 +52,7 @@ class Game(arcade.Window):
 
     def on_draw(self):
         arcade.start_render()
+        arcade.draw_lrwh_rectangle_textured(0, 0, 3000, 2000, self.background)
 
         for i in self.ground_list:
             i.draw()

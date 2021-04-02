@@ -18,6 +18,7 @@ GAME_SONG_2 = arcade.load_sound("assets/dragonborne.mp3")
 LOSE_SOUND = arcade.load_sound(":resources:sounds/lose4.wav")
 DAMAGE_SOUND = arcade.load_sound(":resources:sounds/hurt3.wav")
 WIN_SOUND = arcade.load_sound(":resources:sounds/coin2.wav")
+BACKGROUND_IMAGE = arcade.load_texture("images/Background2.jpg")
 
 SPRITE_PIXEL_SIZE = 128
 GRID_PIXEL_SIZE = (SPRITE_PIXEL_SIZE * SPRITE_SCALING)
