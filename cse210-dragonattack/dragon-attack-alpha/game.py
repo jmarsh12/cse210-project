@@ -122,7 +122,7 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 600
             self.ground_list.append(self.ground)
-            for gem in range(69, 70, 6):
+            for gem in range(69, 70, 1):
                 self.gem = Gem()
                 self.gem.center_x = gem * 17
                 self.gem.center_y = 650
@@ -151,7 +151,7 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 1050
             self.ground_list.append(self.ground)
-            for gem in range(96, 97, 6):
+            for gem in range(96, 97, 1):
                 self.gem = Gem()
                 self.gem.center_x = gem * 17
                 self.gem.center_y = 1100
@@ -162,7 +162,7 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 950
             self.ground_list.append(self.ground)
-            for gem in range(151, 152, 6):
+            for gem in range(151, 152, 1):
                 self.gem = Gem()
                 self.gem.center_x = gem * 17
                 self.gem.center_y = 1000
@@ -179,7 +179,7 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 550
             self.ground_list.append(self.ground)
-            for gem in range(239, 240, 6):
+            for gem in range(239, 240, 1):
                 self.gem = Gem()
                 self.gem.center_x = gem * 17
                 self.gem.center_y = 600
@@ -190,7 +190,7 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 0
             self.ground_list.append(self.ground)
-            for gem in range(231, 232, 6):
+            for gem in range(231, 232, 1):
                 self.gem = Gem()
                 self.gem.center_x = gem * 17
                 self.gem.center_y = 50
@@ -207,7 +207,7 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 400
             self.ground_list.append(self.ground)
-            for gem in range(313, 314, 6):
+            for gem in range(313, 314, 1):
                 self.gem = Gem()
                 self.gem.center_x = gem * 17
                 self.gem.center_y = 450
@@ -224,7 +224,7 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 800
             self.ground_list.append(self.ground)
-            for gem in range(394, 395, 6):
+            for gem in range(394, 395, 1):
                 self.gem = Gem()
                 self.gem.center_x = gem * 17
                 self.gem.center_y = 850
@@ -235,7 +235,7 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 650
             self.ground_list.append(self.ground)
-            for gem in range(420, 421, 6):
+            for gem in range(420, 421, 1):
                 self.gem = Gem()
                 self.gem.center_x = gem * 17
                 self.gem.center_y = 700
@@ -246,7 +246,7 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 400
             self.ground_list.append(self.ground)
-            for gem in range(409, 410, 6):
+            for gem in range(409, 410, 1):
                 self.gem = Gem()
                 self.gem.center_x = gem * 17
                 self.gem.center_y = 450
@@ -257,7 +257,7 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 330
             self.ground_list.append(self.ground)
-            for gem in range(471, 472, 6):
+            for gem in range(471, 472, 1):
                 self.gem = Gem()
                 self.gem.center_x = gem * 17
                 self.gem.center_y = 380
@@ -274,7 +274,7 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 400
             self.ground_list.append(self.ground)
-            for gem in range(679, 680, 6):
+            for gem in range(679, 680, 1):
                 self.gem = Gem()
                 self.gem.center_x = gem * 17
                 self.gem.center_y = 450
@@ -291,7 +291,7 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 650
             self.ground_list.append(self.ground)
-            for gem in range(694, 695, 6):
+            for gem in range(694, 695, 1):
                 self.gem = Gem()
                 self.gem.center_x = gem * 17
                 self.gem.center_y = 700
@@ -308,7 +308,7 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 400
             self.ground_list.append(self.ground)
-            for gem in range(739, 740, 6):
+            for gem in range(739, 740, 1):
                 self.gem = Gem()
                 self.gem.center_x = gem * 17
                 self.gem.center_y = 450
@@ -343,7 +343,7 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 500
             self.ground_list.append(self.ground)
-            for gem in range(924, 925, 6):
+            for gem in range(924, 925, 1):
                 self.gem = Gem()
                 self.gem.center_x = gem * 17
                 self.gem.center_y = 550
@@ -372,7 +372,7 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 1250
             self.ground_list.append(self.ground)
-            for gem in range(981, 982, 6):
+            for gem in range(981, 982, 1):
                 self.gem = Gem()
                 self.gem.center_x = gem * 17
                 self.gem.center_y = 1300
@@ -395,7 +395,7 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 1550
             self.ground_list.append(self.ground)
-            for gem in range(1041, 1042, 6):
+            for gem in range(1041, 1042, 1):
                 self.gem = Gem()
                 self.gem.center_x = gem * 17
                 self.gem.center_y = 1600
@@ -520,7 +520,7 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 1950
             self.ground_list.append(self.ground)
-            for gem in range(1091, 1092, 6):
+            for gem in range(1091, 1092, 1):
                 self.gem = Gem()
                 self.gem.center_x = gem * 17
                 self.gem.center_y = 2000
@@ -537,7 +537,7 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 850
             self.ground_list.append(self.ground)
-            for gem in range(1164, 1165, 6):
+            for gem in range(1164, 1165, 1):
                 self.gem = Gem()
                 self.gem.center_x = gem * 17
                 self.gem.center_y = 900
@@ -560,7 +560,7 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 750
             self.ground_list.append(self.ground)
-            for gem in range(1416, 1417, 6):
+            for gem in range(1416, 1417, 1):
                 self.gem = Gem()
                 self.gem.center_x = gem * 17
                 self.gem.center_y = 800
@@ -727,8 +727,9 @@ class Game(arcade.Window):
             if i.left < 0 or i.top > 1200:
                 i.remove_from_sprite_lists()
 
-        if self.dragon.collides_with_sprite(self.flag):
-            self.win = True
+        for fire in self.dragon.fire_list:
+            if fire.collides_with_sprite(self.flag):
+                self.win = True
 
         if self.win:
             arcade.play_sound(constants.WIN_SOUND)
