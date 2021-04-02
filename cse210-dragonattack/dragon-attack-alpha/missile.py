@@ -11,4 +11,3 @@ class Missile(arcade.Sprite):
         # self.velocity = (-10, 60)
         self.change_x = -5
         self.change_y = 10
-        
