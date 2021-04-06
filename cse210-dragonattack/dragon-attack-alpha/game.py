@@ -10,6 +10,7 @@ from sheep import Sheep
 import time
 from flag import Flag
 from gem import Gem
+from game_over import GameOverView
 
 
 class Game(arcade.View):
@@ -801,7 +802,10 @@ class Game(arcade.View):
         if self.dragon.center_y < -400:
             arcade.play_sound(constants.LOSE_SOUND)
             time.sleep(0.6)
-            arcade.close_window()
+            self.game_over = True
+            game_over_view = GameOverView() 
+            self.window.show_view(game_over_view)
+            #arcade.close_window()
             # self.dragon.center_x = 50
             # self.dragon.center_y = 150
 

@@ -15,4 +15,6 @@ class GameOverView(arcade.View):
         """
         Draw "Game over" across the screen.
         """
-        arcade.draw_text("Game Over", 100, constants.SCREEN_HEIGHT/2+300, arcade.color.WHITE, 54)
+        arcade.draw_text("Game Over", 600, 600, arcade.color.WHITE, font_size=54, anchor_x="center")
+        # arcade.draw_text("Press space to play", WIDTH/2, HEIGHT/2 - 150,
+        #                  arcade.color.WHITE, font_size=30, anchor_x="center")
