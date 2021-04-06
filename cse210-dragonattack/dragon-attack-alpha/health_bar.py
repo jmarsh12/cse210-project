@@ -12,7 +12,7 @@ class HealthBar:
         self.center_y = y = self.dragon.get_center_y()
         self.height = constants.HEALTH_BAR_HEIGHT
         self.width = constants.HEALTH_BAR_LENGTH
-        self.color = arcade.color.GO_GREEN
+        self.color = arcade.color.RED
         self.change_x = 0
         self.change_y = constants.GRAVITY
 
