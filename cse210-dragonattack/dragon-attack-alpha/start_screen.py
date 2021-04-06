@@ -26,7 +26,6 @@ class MenuView(arcade.View):
         """ Handle keypresses. In this case, we'll just count a 'space' as
         game over and advance to the game over view. """
         if key == arcade.key.SPACE:
-            #game_over_view = GameOverView()
             game = Game()
             self.window.show_view(game)
             game.setup()

@@ -803,7 +803,7 @@ class Game(arcade.View):
             arcade.play_sound(constants.LOSE_SOUND)
             time.sleep(0.6)
             self.game_over = True
-            game_over_view = GameOverView() 
+            game_over_view = GameOverView(self.dragon.center_x, self.dragon.center_y) 
             self.window.show_view(game_over_view)
             #arcade.close_window()
             # self.dragon.center_x = 50
