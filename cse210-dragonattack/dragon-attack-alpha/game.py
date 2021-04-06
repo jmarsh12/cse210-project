@@ -51,6 +51,7 @@ class Game(arcade.Window):
 
     def on_draw(self):
         arcade.start_render()
+        arcade.draw_lrwh_rectangle_textured(-1500, -500, 32000, 5000, constants.BACKGROUND_IMAGE)
 
         for i in self.ground_list:
             i.draw()

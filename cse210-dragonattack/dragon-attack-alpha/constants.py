@@ -10,6 +10,7 @@ GROUND_IMAGE = "images/ground.png"
 DRAGON_IMAGE = "images/dragon.png"
 SHEEP_IMAGE = "images/sheep_right.png"
 FIRE_IMAGE = "images/small_fireball.png"
+BACKGROUND_IMAGE = arcade.load_texture("images/Background2long.jpg")
 FIRE_MIRROR_IMAGE = "images/small_fireball_mirror.png"
 FIRE_SOUND = arcade.load_sound(":resources:sounds/explosion2.wav")
 FIRE_IMPACT_SOUND = arcade.load_sound(":resources:/sounds/hit1.wav")
