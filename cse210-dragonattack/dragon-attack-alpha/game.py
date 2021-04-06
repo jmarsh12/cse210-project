@@ -56,6 +56,9 @@ class Game(arcade.View):
         arcade.start_render()
         arcade.draw_lrwh_rectangle_textured(-1500, -500, 32000, 5000, constants.BACKGROUND_IMAGE)
 
+        for flag in self.level_1.flag_list:
+            flag.draw()
+
         for i in self.ground_list:
             i.draw()
 
@@ -222,8 +225,9 @@ class Game(arcade.View):
                 i.remove_from_sprite_lists()
 
         for fire in self.dragon.fire_list:
-            if fire.collides_with_sprite(self.flag):
-                self.win = True
+            for flag in self.level_1.flag_list:
+                if fire.collides_with_sprite(flag):
+                    self.win = True
 
         if self.win:
             arcade.play_sound(constants.WIN_SOUND)
@@ -233,6 +237,7 @@ class Game(arcade.View):
         if self.game_over:
             # arcade.close_window()
             self.dragon.center_x = 50
+            self.dragon.center_y = 150
             self.game_over = False
             # if we want to just start the level over, use the above code
 

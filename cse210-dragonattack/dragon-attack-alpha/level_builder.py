@@ -5,6 +5,7 @@ from missile import Missile
 from flag import Flag
 from game import constants
 import arcade
+from sheep import Sheep
 
 
 class LevelBuilder:
@@ -24,6 +25,10 @@ class LevelBuilder:
         self.platform_list = arcade.SpriteList()
         self.village_list = arcade.SpriteList()
         self.gem_list = arcade.SpriteList()
+        self.flag_list = arcade.SpriteList()
+
+        self.sheep = Sheep()
+        self.flag = Flag()
 
     def build_level_1(self):
         arcade.play_sound(constants.GAME_SONG_2)
@@ -438,14 +443,13 @@ class LevelBuilder:
             self.ground.center_x = i * 17
             self.ground.center_y = 750
             self.platform_list.append(self.ground)
-            #     TODO: add platforms to their own class
             #     43rd platform
 
         for i in range(1610, 1615, 6):
             self.flag = Flag()
             self.flag.center_x = i * 17
-            self.flag.center_y = 200
-            self.platform_list.append(self.flag)
+            self.flag.center_y = 180
+            self.flag_list.append(self.flag)
 
     def _create_villages(self):
         self.village1.center_x = 400
