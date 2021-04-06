@@ -10,18 +10,35 @@ GROUND_IMAGE = "images/ground.png"
 DRAGON_IMAGE = "images/dragon.png"
 SHEEP_IMAGE = "images/sheep_right.png"
 FIRE_IMAGE = "images/small_fireball.png"
+BACKGROUND_IMAGE = arcade.load_texture("images/Background2long.jpg")
+FIRE_MIRROR_IMAGE = "images/small_fireball_mirror.png"
 FIRE_SOUND = arcade.load_sound(":resources:sounds/explosion2.wav")
 FIRE_IMPACT_SOUND = arcade.load_sound(":resources:/sounds/hit1.wav")
 GAME_SONG = arcade.load_sound("assets/Monkey_Drama.mp3")
+GAME_SONG_2 = arcade.load_sound("assets/dragonborne.mp3")
+LOSE_SOUND = arcade.load_sound(":resources:sounds/lose4.wav")
+DAMAGE_SOUND = arcade.load_sound(":resources:sounds/hurt3.wav")
+WIN_SOUND = arcade.load_sound(":resources:sounds/coin2.wav")
 
 SPRITE_PIXEL_SIZE = 128
 GRID_PIXEL_SIZE = (SPRITE_PIXEL_SIZE * SPRITE_SCALING)
 TERRAIN_RADIUS = 55
 TERRAIN_HEIGHT = 56
 
+FLAG_HEIGHT = 75
+FLAG_RADIUS = 15
+FLAG_IMAGE = "images/flagGreen2.png"
+
+GEM_IMAGE = "images/gemBlue.png"
+GEM_HEIGHT = 5
+GEM_RADIUS = 5
+GEM_SOUND = arcade.load_sound(":resources:sounds/coin4.wav")
+
+
 DRAGON_RADIUS = (130 / 2)
 DRAGON_HEIGHT = (54 / 2)
 DRAGON_MAX_HEALTH = 1000
+DRAGON_DIVE_SPEED = -30
 
 HEALTH_BAR_LENGTH = DRAGON_MAX_HEALTH / 10
 HEALTH_BAR_HEIGHT = 10
@@ -53,8 +70,9 @@ MAX_FIRE = 102
 SHEEP_RADIUS = 65
 SHEEP_HEIGHT = 27
 SHEEP_SPEED = .5
+SHEEP_HEALTH_BONUS = 200
 
-PLAYER_MOVEMENT_SPEED = 50
+PLAYER_MOVEMENT_SPEED = 75
 FIRE_SPEED = 25
 
 RIGHT_VIEWPOINT_MARGIN = 950
@@ -66,4 +84,6 @@ GRAVITY = 15
 PLAYER_JUMP_SPEED = 20
 
 VILLAGE_IMAGE = "images/village3.png"
+
 MISSILE_IMAGE = "images/rock.png"
+MISSILE_DAMAGE = 100

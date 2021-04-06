@@ -7,6 +7,9 @@ from fire import Fire
 from health_bar import HealthBar
 from village import Village
 from sheep import Sheep
+import time
+from flag import Flag
+from gem import Gem
 
 
 class Game(arcade.Window):
@@ -15,6 +18,9 @@ class Game(arcade.Window):
         super().__init__(constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT, "Dragon Attack")
         arcade.set_background_color(arcade.color.ALICE_BLUE)
 
+        self.flag = Flag()
+        self.gem = Gem()
+        self.gem_list = arcade.SpriteList()
         self.fire_impact_sound = constants.FIRE_IMPACT_SOUND
         self.fire_sound = constants.FIRE_SOUND
         self.dragon = Dragon()
@@ -34,19 +40,25 @@ class Game(arcade.Window):
         self.view_bottom = 0
         self.view_left = 0
         self.physics_engine = None
-        self.song = constants.GAME_SONG
+        self.song = constants.GAME_SONG_2
 
         self.missile_list = arcade.SpriteList()
         self.village_list = arcade.SpriteList()
         self.physics_engine_missile = None
 
+        self.win = False
         self.game_over = False
 
     def on_draw(self):
         arcade.start_render()
+        arcade.draw_lrwh_rectangle_textured(-1500, -500, 32000, 5000, constants.BACKGROUND_IMAGE)
 
         for i in self.ground_list:
             i.draw()
+
+        for gem in self.gem_list:
+            gem.draw()
+
         self.health.draw_health_bar()
         self.dragon.draw()
 
@@ -61,10 +73,10 @@ class Game(arcade.Window):
 
         self.missile_list.draw()
 
-        if len(self.sheep.sheep_list) <= 5:
-            for i in range(5):
-                self.sheep.center_x = random.randint(200, 1000)
-                self.sheep.sheep_list.append(self.sheep)
+        if len(self.sheep.sheep_list) < 5:
+
+            self.sheep.center_x = random.randint(200, 1000)
+            self.sheep.sheep_list.append(self.sheep)
             
         for i in self.sheep.sheep_list:
             if self.sheep.alive:
@@ -78,11 +90,10 @@ class Game(arcade.Window):
                         self.sheep.sheep_list.remove(sheep)
                         break
             self.alive = False
-        
 
     def setup(self):
 
-        arcade.play_sound(self.song)
+        arcade.play_sound(constants.GAME_SONG_2)
 
         for i in range(0, 30, 1):
             self.ground = Ground()
@@ -99,13 +110,24 @@ class Game(arcade.Window):
             self.ground.center_x = constants.TERRAIN_RADIUS * (i * 2)
             self.ground_list.append(self.ground)
 
-        # self.level_builder.build_level_1()
+            # for i in range(10, 15, 6):
+            #     self.gem = Gem()
+            #     self.gem.center_x = i * 17
+            #     self.gem.center_y = 150
+            #     self.gem_list.append(self.gem)
+
+            # self.level_builder.build_level_1()
 
         for i in range(60, 75, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 600
             self.ground_list.append(self.ground)
+            for gem in range(69, 70, 1):
+                self.gem = Gem()
+                self.gem.center_x = gem * 17
+                self.gem.center_y = 650
+                self.gem_list.append(self.gem)
 
         for i in range(100, 125, 6):
             self.ground = Ground()
@@ -130,14 +152,22 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 1050
             self.ground_list.append(self.ground)
-        #     TODO: put gold on top of this ledge
+            for gem in range(96, 97, 1):
+                self.gem = Gem()
+                self.gem.center_x = gem * 17
+                self.gem.center_y = 1100
+                self.gem_list.append(self.gem)
 
         for i in range(150, 160, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 950
             self.ground_list.append(self.ground)
-        #     TODO: put gold on top of this ledge
+            for gem in range(151, 152, 1):
+                self.gem = Gem()
+                self.gem.center_x = gem * 17
+                self.gem.center_y = 1000
+                self.gem_list.append(self.gem)
 
         for i in range(200, 220, 6):
             self.ground = Ground()
@@ -150,27 +180,40 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 550
             self.ground_list.append(self.ground)
-        #     TODO: put gold on top of this ledge
+            for gem in range(239, 240, 1):
+                self.gem = Gem()
+                self.gem.center_x = gem * 17
+                self.gem.center_y = 600
+                self.gem_list.append(self.gem)
 
         for i in range(220, 235, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 0
             self.ground_list.append(self.ground)
-        # TODO: put gold on top of this ledge
+            for gem in range(231, 232, 1):
+                self.gem = Gem()
+                self.gem.center_x = gem * 17
+                self.gem.center_y = 50
+                self.gem_list.append(self.gem)
 
         for i in range(245, 260, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 250
             self.ground_list.append(self.ground)
+        #     10th platform
 
         for i in range(300, 320, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 400
             self.ground_list.append(self.ground)
-        #     TODO: put gold on top of this ledge
+            for gem in range(313, 314, 1):
+                self.gem = Gem()
+                self.gem.center_x = gem * 17
+                self.gem.center_y = 450
+                self.gem_list.append(self.gem)
 
         for i in range(345, 355, 6):
             self.ground = Ground()
@@ -183,28 +226,44 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 800
             self.ground_list.append(self.ground)
-        #     TODO: put gold on top of this ledge
+            for gem in range(394, 395, 1):
+                self.gem = Gem()
+                self.gem.center_x = gem * 17
+                self.gem.center_y = 850
+                self.gem_list.append(self.gem)
 
         for i in range(415, 425, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 650
             self.ground_list.append(self.ground)
-        #     TODO: put gold on top of this ledge
+            for gem in range(420, 421, 1):
+                self.gem = Gem()
+                self.gem.center_x = gem * 17
+                self.gem.center_y = 700
+                self.gem_list.append(self.gem)
 
         for i in range(400, 410, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 400
             self.ground_list.append(self.ground)
-        #     TODO: put gold on top of this ledge
+            for gem in range(409, 410, 1):
+                self.gem = Gem()
+                self.gem.center_x = gem * 17
+                self.gem.center_y = 450
+                self.gem_list.append(self.gem)
 
         for i in range(450, 475, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 330
             self.ground_list.append(self.ground)
-        #     TODO: put gold on top of this ledge
+            for gem in range(471, 472, 1):
+                self.gem = Gem()
+                self.gem.center_x = gem * 17
+                self.gem.center_y = 380
+                self.gem_list.append(self.gem)
 
         for i in range(650, 660, 6):
             self.ground = Ground()
@@ -217,7 +276,11 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 400
             self.ground_list.append(self.ground)
-        #     TODO: put gold on top of this ledge
+            for gem in range(679, 680, 1):
+                self.gem = Gem()
+                self.gem.center_x = gem * 17
+                self.gem.center_y = 450
+                self.gem_list.append(self.gem)
 
         for i in range(695, 700, 6):
             self.ground = Ground()
@@ -230,7 +293,12 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 650
             self.ground_list.append(self.ground)
-        #     TODO: put gold on top of this ledge
+            for gem in range(694, 695, 1):
+                self.gem = Gem()
+                self.gem.center_x = gem * 17
+                self.gem.center_y = 700
+                self.gem_list.append(self.gem)
+        #     20th platform
 
         for i in range(715, 720, 6):
             self.ground = Ground()
@@ -243,7 +311,11 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 400
             self.ground_list.append(self.ground)
-        #     TODO: put gold on top of this ledge
+            for gem in range(739, 740, 1):
+                self.gem = Gem()
+                self.gem.center_x = gem * 17
+                self.gem.center_y = 450
+                self.gem_list.append(self.gem)
 
         for i in range(755, 760, 6):
             self.ground = Ground()
@@ -274,6 +346,11 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 500
             self.ground_list.append(self.ground)
+            for gem in range(924, 925, 1):
+                self.gem = Gem()
+                self.gem.center_x = gem * 17
+                self.gem.center_y = 550
+                self.gem_list.append(self.gem)
 
         for i in range(940, 960, 6):
             self.ground = Ground()
@@ -292,12 +369,18 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 1100
             self.ground_list.append(self.ground)
+        #     30th platform
 
         for i in range(980, 985, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 1250
             self.ground_list.append(self.ground)
+            for gem in range(981, 982, 1):
+                self.gem = Gem()
+                self.gem.center_x = gem * 17
+                self.gem.center_y = 1300
+                self.gem_list.append(self.gem)
 
         for i in range(1000, 1005, 6):
             self.ground = Ground()
@@ -316,18 +399,25 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 1550
             self.ground_list.append(self.ground)
+            for gem in range(1041, 1042, 1):
+                self.gem = Gem()
+                self.gem.center_x = gem * 17
+                self.gem.center_y = 1600
+                self.gem_list.append(self.gem)
 
         for i in range(1060, 1065, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 1700
             self.ground_list.append(self.ground)
+        #     36th platform
 
         for i in range(1090, 1095, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 150
             self.ground_list.append(self.ground)
+        #     beginning of wall
 
         for i in range(1090, 1095, 6):
             self.ground = Ground()
@@ -436,7 +526,12 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 1950
             self.ground_list.append(self.ground)
-        #     TODO: put coin on top of wall
+            for gem in range(1091, 1092, 1):
+                self.gem = Gem()
+                self.gem.center_x = gem * 17
+                self.gem.center_y = 2000
+                self.gem_list.append(self.gem)
+        #     end of wall
 
         for i in range(1125, 1130, 6):
             self.ground = Ground()
@@ -449,6 +544,11 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 850
             self.ground_list.append(self.ground)
+            for gem in range(1164, 1165, 1):
+                self.gem = Gem()
+                self.gem.center_x = gem * 17
+                self.gem.center_y = 900
+                self.gem_list.append(self.gem)
 
         for i in range(1350, 1360, 6):
             self.ground = Ground()
@@ -461,12 +561,18 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 650
             self.ground_list.append(self.ground)
+        # 40th platform
 
         for i in range(1410, 1425, 6):
             self.ground = Ground()
             self.ground.center_x = i * 17
             self.ground.center_y = 750
             self.ground_list.append(self.ground)
+            for gem in range(1416, 1417, 1):
+                self.gem = Gem()
+                self.gem.center_x = gem * 17
+                self.gem.center_y = 800
+                self.gem_list.append(self.gem)
 
         for i in range(1445, 1460, 6):
             self.ground = Ground()
@@ -479,8 +585,14 @@ class Game(arcade.Window):
             self.ground.center_x = i * 17
             self.ground.center_y = 750
             self.ground_list.append(self.ground)
-        #         TODO: add ending flag at range(1610, 1615, 6)
-        #         TODO: add platforms to their own class
+            #     TODO: add platforms to their own class
+            #     43rd platform
+
+        for i in range(1610, 1615, 6):
+            self.flag = Flag()
+            self.flag.center_x = i * 17
+            self.flag.center_y = 200
+            self.ground_list.append(self.flag)
 
         # Create the 'physics engine'
 
@@ -497,6 +609,54 @@ class Game(arcade.Window):
         self.village2.center_y = 152
         self.village_list.append(self.village2)
         arcade.schedule(self.village2.add_missile, 1)
+
+        self.village2 = Village(self.missile_list)
+        self.village2.center_x = 5000
+        self.village2.center_y = 152
+        self.village_list.append(self.village2)
+        arcade.schedule(self.village2.add_missile, 1)
+
+        self.village2 = Village(self.missile_list)
+        self.village2.center_x = 7775
+        self.village2.center_y = 420
+        self.village_list.append(self.village2)
+        arcade.schedule(self.village2.add_missile, 1)
+
+        self.village2 = Village(self.missile_list)
+        self.village2.center_x = 15000
+        self.village2.center_y = 440
+        self.village_list.append(self.village2)
+        arcade.schedule(self.village2.add_missile, 1)
+
+        self.village2 = Village(self.missile_list)
+        self.village2.center_x = 19750
+        self.village2.center_y = 940
+        self.village_list.append(self.village2)
+        arcade.schedule(self.village2.add_missile, 1)
+
+        self.village2 = Village(self.missile_list)
+        self.village2.center_x = 25000
+        self.village2.center_y = 152
+        self.village_list.append(self.village2)
+        arcade.schedule(self.village2.add_missile, 1)
+
+        # self.village8 = Village(self.missile_list)
+        # self.village8.center_x = 2500
+        # self.village8.center_y = 152
+        # self.village_list.append(self.village2)
+        # arcade.schedule(self.village2.add_missile, 1)
+        #
+        # self.village9 = Village(self.missile_list)
+        # self.village9.center_x = 400
+        # self.village9.center_y = 152
+        # self.village_list.append(self.village1)
+        # arcade.schedule(self.village1.add_missile, 1)
+        #
+        # self.village10 = Village(self.missile_list)
+        # self.village10.center_x = 2500
+        # self.village10.center_y = 152
+        # self.village_list.append(self.village2)
+        # arcade.schedule(self.village2.add_missile, 1)
 
         # self.physics_engine = \
         #     arcade.PhysicsEnginePlatformer(self.dragon,
@@ -540,6 +700,12 @@ class Game(arcade.Window):
         self.dragon.change_x = 0
         self.dragon.change_y = 0
         # TODO: If continuous movement is desired, erase 2 previous lines; makes for harder game
+        for sheep in self.sheep.sheep_list:
+            if self.dragon.collides_with_sprite(sheep):
+                self.dragon.gain_sheep_health_bonus()
+                self.sheep.sheep_list.remove(sheep)
+                break
+
         if len(self.dragon.fire_list) > 0:
             for fire in self.dragon.fire_list:
                 for ground in self.ground_list:
@@ -605,22 +771,44 @@ class Game(arcade.Window):
 
         for i in self.missile_list:
             if self.dragon.collides_with_sprite(i):
-                self.game_over = True
+                # self.game_over = True
+                arcade.play_sound(constants.DAMAGE_SOUND)
+                self.dragon.lose_health()
                 i.remove_from_sprite_lists()
+                if self.dragon.health == 0:
+                    self.game_over = True
+                    self.dragon.reset_health()
             elif i.collides_with_list(self.ground_list):
                 i.remove_from_sprite_lists()
-            if i.left < 0 or i.top > 1200:
+            if i.left < 0 or i.top > 3000:
                 i.remove_from_sprite_lists()
 
-        if self.game_over == True:
+        for fire in self.dragon.fire_list:
+            if fire.collides_with_sprite(self.flag):
+                self.win = True
+
+        if self.win:
+            arcade.play_sound(constants.WIN_SOUND)
+            time.sleep(0.6)
+            arcade.close_window()
+
+        if self.game_over:
             # arcade.close_window()
             self.dragon.center_x = 50
             self.game_over = False
             # if we want to just start the level over, use the above code
 
         if self.dragon.center_y < -400:
-            # arcade.close_window()
-            self.dragon.center_x = 50
-            self.dragon.center_y = 150
-            self.game_over = False
+            arcade.play_sound(constants.LOSE_SOUND)
+            time.sleep(0.6)
+            arcade.close_window()
+            # self.dragon.center_x = 50
+            # self.dragon.center_y = 150
+
+            # self.game_over = False
             # if we want to just start the level over, use the above code
+
+        for gem in self.gem_list:
+            if self.dragon.collides_with_sprite(gem):
+                arcade.play_sound(constants.GEM_SOUND)
+                gem.remove_from_sprite_lists()

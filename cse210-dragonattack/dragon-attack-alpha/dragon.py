@@ -35,7 +35,7 @@ class Dragon(arcade.Sprite):
         self.texture_list_right.append(arcade.load_texture(constants.FLYING_RIGHT_6))
         self.texture_list_right.append(arcade.load_texture(constants.FLYING_RIGHT_7))
         self.texture_list_right.append(arcade.load_texture(constants.FLYING_RIGHT_8))
-        self._facing_left = True
+        self._facing_left = False
         self._move_up = True
 
         self._frame = 0
@@ -47,7 +47,7 @@ class Dragon(arcade.Sprite):
         self._frame = (self._frame + 1) % 9
 
     def move_down(self):
-        self.change_y = -(constants.PLAYER_JUMP_SPEED / 2)
+        self.change_y = constants.DRAGON_DIVE_SPEED
         self._move_up = False
         self._frame = (self._frame + 1) % 9
 
@@ -60,6 +60,21 @@ class Dragon(arcade.Sprite):
         self.change_x = constants.PLAYER_MOVEMENT_SPEED
         self._facing_left = False
         self._frame = (self._frame + 1) % 9
+
+    def lose_health(self):
+        if self.health <= 0:
+            self.health = 0
+        else:
+            self.health -= constants.MISSILE_DAMAGE
+
+    def gain_sheep_health_bonus(self):
+        if self.health <= (constants.DRAGON_MAX_HEALTH - constants.SHEEP_HEALTH_BONUS):
+            self.health += constants.SHEEP_HEALTH_BONUS
+        else:
+            self.health = constants.DRAGON_MAX_HEALTH
+
+    def reset_health(self):
+        self.health = constants.DRAGON_MAX_HEALTH
 
     def draw(self):
 
@@ -79,21 +94,30 @@ class Dragon(arcade.Sprite):
     def get_center_y(self):
         return self.center_y
 
+    def get_health_remaining(self):
+        return self.health
+
     def move_fire(self):
         if len(self.fire_list) > 0:
             for i in range(len(self.fire_list)):
-                self.fire_list[i].center_x += self.fire.change_x
-                self.fire_list[i].center_y += self.fire.change_y
-                self.fire_list[i].change_y = -constants.FIRE_SPEED
-                self.fire_list[i].change_x = constants.FIRE_SPEED
+                self.fire_list[i].move_fire()
+                # self.fire_list[i].center_y += self.fire.change_y
+                # self.fire_list[i].change_y = -constants.FIRE_SPEED
+                # self.fire_list[i].change_x = constants.FIRE_SPEED
         else:
             pass
 
     def shoot_fire(self):
         if self.fire_regen > 0:
-            arcade.play_sound(constants.FIRE_SOUND)
-            self.fire = Fire(self.center_x, self.center_y)
-            self.fire_list.append(self.fire)
+            if not self._facing_left:
+                arcade.play_sound(constants.FIRE_SOUND)
+                self.fire = Fire(self.center_x, self.center_y, 0)
+                self.fire_list.append(self.fire)
+            elif self._facing_left:
+                arcade.play_sound(constants.FIRE_SOUND)
+                self.fire = Fire(self.center_x, self.center_y, 1)
+                self.fire_list.append(self.fire)
+
         self.fire_regen -= constants.FIRE_REGEN_SPEED
 
     def regenerate_fire(self):
