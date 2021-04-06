@@ -12,7 +12,7 @@ from flag import Flag
 from gem import Gem
 
 
-class Game(arcade.Window):
+class Game(arcade.View):
 
     def __init__(self):
         super().__init__(constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT, "Dragon Attack")
