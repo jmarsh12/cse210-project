@@ -7,7 +7,5 @@ class Missile(arcade.Sprite):
         super().__init__(constants.MISSILE_IMAGE)
         self.center_y = y
         self.center_x = x
-    
-        # self.velocity = (-10, 60)
         self.change_x = -5
         self.change_y = 10
