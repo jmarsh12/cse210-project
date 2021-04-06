@@ -15,7 +15,7 @@ from gem import Gem
 class Game(arcade.View):
 
     def __init__(self):
-        super().__init__(constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT, "Dragon Attack")
+        super().__init__()
         arcade.set_background_color(arcade.color.ALICE_BLUE)
 
         self.flag = Flag()
