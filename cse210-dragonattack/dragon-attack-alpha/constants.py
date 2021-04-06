@@ -2,15 +2,15 @@ import os
 import arcade
 
 SPRITE_SCALING = 0.5
-SCREEN_WIDTH = 1900
-SCREEN_HEIGHT = 1000
+SCREEN_WIDTH = 1200
+SCREEN_HEIGHT = 900
 SCREEN_TITLE = "Sprite with Moving Platforms Example"
 
 GROUND_IMAGE = "images/ground.png"
 DRAGON_IMAGE = "images/dragon.png"
 SHEEP_IMAGE = "images/sheep_right.png"
 FIRE_IMAGE = "images/small_fireball.png"
-BACKGROUND_IMAGE = arcade.load_texture("images/Background2long.jpg")
+BACKGROUND_IMAGE = arcade.load_texture("images/Background2.1.jpg")
 FIRE_MIRROR_IMAGE = "images/small_fireball_mirror.png"
 FIRE_SOUND = arcade.load_sound(":resources:sounds/explosion2.wav")
 FIRE_IMPACT_SOUND = arcade.load_sound(":resources:/sounds/hit1.wav")
@@ -68,11 +68,11 @@ FIRE_REGEN_SPEED = 17
 MAX_FIRE = 102
 
 SHEEP_RADIUS = 65
-SHEEP_HEIGHT = 27
+SHEEP_HEIGHT = 10
 SHEEP_SPEED = .5
 SHEEP_HEALTH_BONUS = 200
 
-PLAYER_MOVEMENT_SPEED = 175
+PLAYER_MOVEMENT_SPEED = 35
 FIRE_SPEED = 25
 
 RIGHT_VIEWPOINT_MARGIN = 950

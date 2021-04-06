@@ -54,7 +54,7 @@ class Game(arcade.View):
 
     def on_draw(self):
         arcade.start_render()
-        arcade.draw_lrwh_rectangle_textured(-1500, -500, 32000, 5000, constants.BACKGROUND_IMAGE)
+        arcade.draw_lrwh_rectangle_textured(-1500, -100, 36000, 3000, constants.BACKGROUND_IMAGE)
 
         for flag in self.level_1.flag_list:
             flag.draw()
@@ -80,8 +80,7 @@ class Game(arcade.View):
         self.missile_list.draw()
 
         if len(self.sheep.sheep_list) < 5:
-
-            self.sheep.center_x = random.randint(200, 1000)
+            self.sheep.center_x = random.randint(200, 2000)
             self.sheep.sheep_list.append(self.sheep)
             
         for i in self.sheep.sheep_list:
