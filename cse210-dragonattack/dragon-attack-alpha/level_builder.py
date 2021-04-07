@@ -31,7 +31,6 @@ class LevelBuilder:
         self.sheep = Sheep()
         self.flag = Flag()
 
-
     def build_level_1(self):
         arcade.play_sound(constants.GAME_SONG_2)
         self._create_villages()

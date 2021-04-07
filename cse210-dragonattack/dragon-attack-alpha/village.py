@@ -1,6 +1,5 @@
 import arcade
 import constants
-from missile import Missile
 
 
 class Village(arcade.Sprite):
