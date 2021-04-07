@@ -18,7 +18,6 @@ class Fire(arcade.Sprite):
             self.change_y = -constants.FIRE_SPEED
             self.center_y = y
             self.center_x = x - constants.DRAGON_RADIUS - constants.FIRE_RADIUS
-        # self.dragon = Dragon()
 
     def move_fire(self):
         if self._identifier == 0:
@@ -33,5 +32,5 @@ class Fire(arcade.Sprite):
             self.change_x = -constants.FIRE_SPEED
 
     @staticmethod
-    def blow_fire(self):
+    def blow_fire():
         arcade.play_sound(constants.FIRE_SOUND)

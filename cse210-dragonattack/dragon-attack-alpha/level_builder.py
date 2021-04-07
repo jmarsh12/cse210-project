@@ -24,16 +24,19 @@ class LevelBuilder:
 
         self.platform_list = arcade.SpriteList()
         self.village_list = arcade.SpriteList()
+        self.impenetrable_list = arcade.SpriteList()
         self.gem_list = arcade.SpriteList()
+        self.missile_list = []
         self.flag_list = arcade.SpriteList()
-
         self.sheep = Sheep()
         self.flag = Flag()
+
 
     def build_level_1(self):
         arcade.play_sound(constants.GAME_SONG_2)
         self._create_villages()
         self._create_ground_and_platforms()
+        self._create_missiles()
 
     def _create_ground_and_platforms(self):
 
@@ -480,28 +483,23 @@ class LevelBuilder:
         self.village7.center_y = 152
         self.village_list.append(self.village7)
 
-        # self.village8.center_x = 2500
-        # self.village8.center_y = 152
-        # self.village_list.append(self.village8)
-        # arcade.schedule(self.village8.add_missile, 1)
-        #
-        # self.village9.center_x = 400
-        # self.village9.center_y = 152
-        # self.village_list.append(self.village1)
-        # arcade.schedule(self.village1.add_missile, 1)
-        #
-        # self.village10.center_x = 2500
-        # self.village10.center_y = 152
-        # self.village_list.append(self.village2)
-        # arcade.schedule(self.village2.add_missile, 1)
-        #
-        # self.physics_engine = arcade.PhysicsEnginePlatformer(self.dragon, self.village_list, constants.GRAVITY)
+    def _create_missiles(self):
+        for village in self.village_list:
+            self.missile = Missile(village.center_x, village.center_y)
+            self.missile_list.append(self.missile)
 
     def _place_gem(self, x, y):
         self.gem = Gem()
         self.gem.center_x = x
         self.gem.center_y = y
         self.gem_list.append(self.gem)
+
+    def get_impenetrable_list(self):
+        for village in self.village_list:
+            self.impenetrable_list.append(village)
+        for ground in self.platform_list:
+            self.impenetrable_list.append(ground)
+        return self.impenetrable_list
 
     def get_platforms(self):
         return self.platform_list
@@ -511,3 +509,6 @@ class LevelBuilder:
 
     def get_gems(self):
         return self.gem_list
+
+    def get_missiles(self):
+        return self.missile_list

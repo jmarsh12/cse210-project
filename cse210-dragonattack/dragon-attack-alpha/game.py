@@ -1,4 +1,5 @@
 import arcade
+
 import constants
 import random
 from ground import Ground
@@ -12,6 +13,7 @@ from flag import Flag
 from gem import Gem
 from game_over import GameOverView
 from level_builder import LevelBuilder
+from missile import Missile
 
 
 class Game(arcade.View):
@@ -32,6 +34,7 @@ class Game(arcade.View):
         self.sheep = Sheep()
         self.ground = None
         self.ground_list = arcade.SpriteList()
+        self.impenetrable_list = arcade.SpriteList()
         self.fire_list = []
         self.left_pressed = False
         self.right_pressed = False
@@ -44,8 +47,9 @@ class Game(arcade.View):
         self.view_left = 0
         self.physics_engine = None
         self.song = constants.GAME_SONG_2
+        self.missile = None
 
-        self.missile_list = arcade.SpriteList()
+        self.missile_list = []
         self.village_list = arcade.SpriteList()
         self.physics_engine_missile = None
 
@@ -77,13 +81,13 @@ class Game(arcade.View):
         for i in self.village_list:
             i.draw()
 
-        self.missile_list.draw()
+        for missile in self.missile_list:
+            missile.draw()
 
         if len(self.sheep.sheep_list) < 5:
-
             self.sheep.center_x = random.randint(200, 1000)
             self.sheep.sheep_list.append(self.sheep)
-            
+
         for i in self.sheep.sheep_list:
             if self.sheep.alive:
                 self.sheep.draw()
@@ -91,18 +95,20 @@ class Game(arcade.View):
         for fire in self.dragon.fire_list:
             for sheep in self.sheep.sheep_list:
                 if fire.collides_with_sprite(sheep):
-                        arcade.play_sound(constants.FIRE_IMPACT_SOUND)
-                        self.dragon.fire_list.remove(fire)
-                        self.sheep.sheep_list.remove(sheep)
-                        break
+                    arcade.play_sound(constants.FIRE_IMPACT_SOUND)
+                    self.dragon.fire_list.remove(fire)
+                    self.sheep.sheep_list.remove(sheep)
+                    break
             self.alive = False
 
     def setup(self):
         self.level_1.build_level_1()
         self.ground_list = self.level_1.get_platforms()
         self.village_list = self.level_1.get_villages()
+        self.missile_list = self.level_1.get_missiles()
+        self.impenetrable_list = self.level_1.get_impenetrable_list()
         self.gem_list = self.level_1.get_gems()
-        self.physics_engine = arcade.PhysicsEnginePlatformer(self.dragon, self.ground_list, constants.GRAVITY)
+        self.physics_engine = arcade.PhysicsEnginePlatformer(self.dragon, self.impenetrable_list, constants.GRAVITY)
 
     def on_key_press(self, key, modifiers):
         """
@@ -135,12 +141,19 @@ class Game(arcade.View):
             self.space_pressed = False
 
     def on_update(self, delta_time):
+        if time.time() % 1.5 < 0.15:
+            for village in self.village_list:
+                self.missile = Missile(village.center_x + (random.randint(-50, 100)), village.center_y)
+                self.missile_list.append(self.missile)
+
         self.dragon.regenerate_fire()
         self.health.update(self.dragon.get_center_x(), self.dragon.get_center_y(), self.dragon.health)
         self.dragon.move_fire()
+
         self.dragon.change_x = 0
         self.dragon.change_y = 0
         # TODO: If continuous movement is desired, erase 2 previous lines; makes for harder game
+
         for sheep in self.sheep.sheep_list:
             if self.dragon.collides_with_sprite(sheep):
                 self.dragon.gain_sheep_health_bonus()
@@ -157,28 +170,37 @@ class Game(arcade.View):
                     elif fire.center_y < -100:
                         self.dragon.fire_list.remove(fire)
                         break
+
         for i in self.missile_list:
             self.physics_engine_missile = \
-             arcade.PhysicsEnginePlatformer(i, self.village_list, gravity_constant=0.2)
+                arcade.PhysicsEnginePlatformer(i, self.village_list, gravity_constant=0.2)
             self.physics_engine_missile.update()
 
-        for ground in self.ground_list:
-            if self.dragon.collides_with_sprite(ground):
-                self.dragon.center_y = (2 * constants.TERRAIN_HEIGHT) + constants.DRAGON_HEIGHT
-        # TODO: resolve collisions with platforms bug
+        for i in self.missile_list:
+            if self.dragon.collides_with_sprite(i):
+                arcade.play_sound(constants.DAMAGE_SOUND)
+                self.dragon.lose_health()
+                self.missile_list.remove(i)
+                if self.dragon.health == 0:
+                    self.game_over = True
+                    self.dragon.reset_health()
+            elif i.collides_with_list(self.ground_list):
+                self.missile_list.remove(i)
+            if i.left < 0 or i.top > 3000:
+                self.missile_list.remove(i)
+
+        for fire in self.dragon.fire_list:
+            if fire.collides_with_sprite(self.flag):
+                self.win = True
 
         if self.up_pressed and not self.down_pressed:
             self.dragon.move_up()
-            # self.health.move_up()
         elif self.down_pressed and not self.up_pressed:
             self.dragon.move_down()
-            # self.health.move_down()
         if self.left_pressed and not self.right_pressed:
             self.dragon.move_left()
-        # self.health.move_left()
         elif self.right_pressed and not self.left_pressed:
             self.dragon.move_right()
-            # self.health.move_right()
         if self.space_pressed:
             self.dragon.shoot_fire()
         self.physics_engine.update()
@@ -212,7 +234,6 @@ class Game(arcade.View):
 
         for i in self.missile_list:
             if self.dragon.collides_with_sprite(i):
-                # self.game_over = True
                 arcade.play_sound(constants.DAMAGE_SOUND)
                 self.dragon.lose_health()
                 i.remove_from_sprite_lists()
@@ -235,7 +256,6 @@ class Game(arcade.View):
             arcade.close_window()
 
         if self.game_over:
-            # arcade.close_window()
             self.dragon.center_x = 50
             self.dragon.center_y = 150
             self.game_over = False
@@ -245,14 +265,8 @@ class Game(arcade.View):
             arcade.play_sound(constants.LOSE_SOUND)
             time.sleep(0.6)
             self.game_over = True
-            game_over_view = GameOverView(self.dragon.center_x, self.dragon.center_y) 
+            game_over_view = GameOverView(self.dragon.center_x, self.dragon.center_y)
             self.window.show_view(game_over_view)
-            #arcade.close_window()
-            # self.dragon.center_x = 50
-            # self.dragon.center_y = 150
-
-            # self.game_over = False
-            # if we want to just start the level over, use the above code
 
         for gem in self.gem_list:
             if self.dragon.collides_with_sprite(gem):
