@@ -1,5 +1,4 @@
 import arcade
-import time
 import constants
 
 

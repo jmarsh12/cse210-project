@@ -101,9 +101,6 @@ class Dragon(arcade.Sprite):
         if len(self.fire_list) > 0:
             for i in range(len(self.fire_list)):
                 self.fire_list[i].move_fire()
-                # self.fire_list[i].center_y += self.fire.change_y
-                # self.fire_list[i].change_y = -constants.FIRE_SPEED
-                # self.fire_list[i].change_x = constants.FIRE_SPEED
         else:
             pass
 

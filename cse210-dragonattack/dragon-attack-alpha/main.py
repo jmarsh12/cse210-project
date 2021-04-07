@@ -1,4 +1,3 @@
-#from game import Game
 from start_screen import MenuView
 import arcade
 import constants

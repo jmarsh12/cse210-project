@@ -2,9 +2,7 @@ import arcade
 
 import constants
 import random
-from ground import Ground
 from dragon import Dragon
-from fire import Fire
 from health_bar import HealthBar
 from village import Village
 from sheep import Sheep
@@ -60,6 +58,8 @@ class Game(arcade.View):
         arcade.start_render()
         arcade.draw_lrwh_rectangle_textured(-1500, -500, 32000, 5000, constants.BACKGROUND_IMAGE)
 
+        arcade.draw_text("Burn the flag to win!", 27300, 400, color=(255, 191, 0))
+
         for flag in self.level_1.flag_list:
             flag.draw()
 
@@ -85,7 +85,7 @@ class Game(arcade.View):
             missile.draw()
 
         if len(self.sheep.sheep_list) < 5:
-            self.sheep.center_x = random.randint(200, 1000)
+            self.sheep.center_x = random.randint(200, 5000)
             self.sheep.sheep_list.append(self.sheep)
 
         for i in self.sheep.sheep_list:
@@ -152,7 +152,6 @@ class Game(arcade.View):
 
         self.dragon.change_x = 0
         self.dragon.change_y = 0
-        # TODO: If continuous movement is desired, erase 2 previous lines; makes for harder game
 
         for sheep in self.sheep.sheep_list:
             if self.dragon.collides_with_sprite(sheep):
@@ -188,6 +187,20 @@ class Game(arcade.View):
                 self.missile_list.remove(i)
             if i.left < 0 or i.top > 3000:
                 self.missile_list.remove(i)
+
+        for fire in self.dragon.fire_list:
+            for missile in self.missile_list:
+                if fire.collides_with_sprite(missile):
+                    arcade.play_sound(constants.FIRE_IMPACT_SOUND)
+                    self.missile_list.remove(missile)
+
+        for fire in self.dragon.fire_list:
+            for village in self.village_list:
+                self.village = Village()
+                if fire.collides_with_sprite(village):
+                    arcade.play_sound(constants.FIRE_IMPACT_SOUND)
+                    self.village_list.remove(village)
+                    break
 
         for fire in self.dragon.fire_list:
             if fire.collides_with_sprite(self.flag):
@@ -259,7 +272,6 @@ class Game(arcade.View):
             self.dragon.center_x = 50
             self.dragon.center_y = 150
             self.game_over = False
-            # if we want to just start the level over, use the above code
 
         if self.dragon.center_y < -400:
             arcade.play_sound(constants.LOSE_SOUND)
