@@ -200,6 +200,7 @@ class Game(arcade.View):
                 if fire.collides_with_sprite(village):
                     arcade.play_sound(constants.FIRE_IMPACT_SOUND)
                     self.village_list.remove(village)
+                    self.impenetrable_list.remove(village)
                     break
 
         for fire in self.dragon.fire_list:
@@ -249,14 +250,14 @@ class Game(arcade.View):
             if self.dragon.collides_with_sprite(i):
                 arcade.play_sound(constants.DAMAGE_SOUND)
                 self.dragon.lose_health()
-                i.remove_from_sprite_lists()
+                self.missile_list.remove(i)
                 if self.dragon.health == 0:
                     self.game_over = True
                     self.dragon.reset_health()
             elif i.collides_with_list(self.ground_list):
-                i.remove_from_sprite_lists()
+                self.missile_list.remove(i)
             if i.left < 0 or i.top > 3000:
-                i.remove_from_sprite_lists()
+                self.missile_list.remove(i)
 
         for fire in self.dragon.fire_list:
             for flag in self.level_1.flag_list:
